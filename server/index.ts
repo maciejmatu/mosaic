@@ -4,7 +4,7 @@ import { historyApiFallback } from "koa2-connect-history-api-fallback";
 import { Server } from "boardgame.io/server";
 import { MosaicGame } from "../src/components/MosaicGame";
 
-const root = path.join(__dirname, "./build");
+const root = path.join(__dirname, "../build");
 const PORT = process.env.PORT || 3001;
 
 const server = Server({ games: [MosaicGame] });
