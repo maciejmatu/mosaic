@@ -1,5 +1,6 @@
 import { times, dropRight, partition, each, shuffle, sortBy } from "lodash";
 import { INVALID_MOVE } from "boardgame.io/core";
+import { GAME_ID } from "../config";
 
 type PlayerID = string;
 
@@ -109,7 +110,7 @@ function getTileGroups(
 }
 
 export const MosaicGame = {
-  name: "mosaic",
+  name: GAME_ID,
 
   setup: (ctx, setupData) => {
     // generate 20 tiles for each tile type

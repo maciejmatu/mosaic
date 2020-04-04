@@ -1,38 +1,54 @@
 import React from "react";
-import { MosaicGame } from "./components/MosaicGame";
-import { MosaicBoard } from "./components/MosaicBoard";
-import { Lobby, Client } from "boardgame.io/react";
-import { Local } from "boardgame.io/multiplayer";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { GameLobby, CreateGame } from "./components/Lobby";
+import { Nickname } from "./components/Nickname";
+import { StoreProvider } from "easy-peasy";
+import { initializeStore, useStoreState } from "./store";
+import {
+  NICKNAME_STORAGE_KEY,
+  PLAYER_STORAGE_KEY,
+  StoreModel
+} from "./store/store";
 
-// local play example
-// const Game = Client({
-//   game: MosaicGame,
-//   board: MosaicBoard,
-//   numPlayers: 3,
-//   multiplayer: Local()
-// });
+const savedNickname = localStorage.getItem(NICKNAME_STORAGE_KEY);
+const savedPlayer = localStorage.getItem(PLAYER_STORAGE_KEY);
 
-const url =
-  window.location.protocol +
-  "//" +
-  window.location.hostname +
-  (window.location.port ? ":" + window.location.port : "");
-const GAMEPORT = process.env.PORT || 3001;
-const serverPath =
-  process.env.NODE_ENV === "production"
-    ? `${url}`
-    : `${window.location.hostname}:${GAMEPORT}`;
+const store = initializeStore({
+  nickname: savedNickname || null,
+  activeRoomPlayer: savedPlayer ? JSON.parse(savedPlayer) : null
+} as StoreModel);
 
-function App() {
+const App: React.FC = () => {
+  const nickname = useStoreState(s => s.nickname);
+
   return (
     <div className="App">
-      <Lobby
-        gameServer={serverPath}
-        lobbyServer={serverPath}
-        gameComponents={[{ game: MosaicGame, board: MosaicBoard }]}
-      />
+      <Switch>
+        {/* TODO: Use modal for nickname creation instead of conditional rendering */}
+        <Route exact path="/">
+          {nickname ? <CreateGame /> : <Nickname />}
+        </Route>
+
+        <Route path="/rooms/:id">
+          {nickname ? <GameLobby /> : <Nickname />}
+        </Route>
+
+        <Route path="/nickname">
+          <Nickname />
+        </Route>
+      </Switch>
     </div>
   );
-}
+};
 
-export default App;
+const AppRoot: React.FC = () => {
+  return (
+    <StoreProvider store={store}>
+      <Router>
+        <App />
+      </Router>
+    </StoreProvider>
+  );
+};
+
+export default AppRoot;
