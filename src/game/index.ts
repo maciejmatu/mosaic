@@ -1,4 +1,4 @@
-import { times, dropRight, partition, each, shuffle, sortBy } from "lodash";
+import { times, dropRight, partition, each, shuffle } from "lodash";
 import { INVALID_MOVE } from "boardgame.io/core";
 import { GAME_ID } from "../config";
 

@@ -1,7 +1,11 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { GameLobby, CreateGame } from "./components/Lobby";
-import { Nickname } from "./components/Nickname";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  useHistory
+} from "react-router-dom";
+import { GameLobby } from "./components/Lobby";
 import { StoreProvider } from "easy-peasy";
 import { initializeStore, useStoreState } from "./store";
 import {
@@ -9,6 +13,8 @@ import {
   PLAYER_STORAGE_KEY,
   StoreModel
 } from "./store/store";
+import { CreateGame } from "./components/CreateGame";
+import { SetupNickname } from "./components/SetupNickname";
 
 const savedNickname = localStorage.getItem(NICKNAME_STORAGE_KEY);
 const savedPlayer = localStorage.getItem(PLAYER_STORAGE_KEY);
@@ -20,21 +26,22 @@ const store = initializeStore({
 
 const App: React.FC = () => {
   const nickname = useStoreState(s => s.nickname);
+  const history = useHistory();
 
   return (
     <div className="App">
       <Switch>
         {/* TODO: Use modal for nickname creation instead of conditional rendering */}
         <Route exact path="/">
-          {nickname ? <CreateGame /> : <Nickname />}
+          {nickname ? <CreateGame /> : <SetupNickname />}
         </Route>
 
         <Route path="/rooms/:id">
-          {nickname ? <GameLobby /> : <Nickname />}
+          {nickname ? <GameLobby /> : <SetupNickname />}
         </Route>
 
         <Route path="/nickname">
-          <Nickname />
+          <SetupNickname onSubmit={() => history.push("/")} />
         </Route>
       </Switch>
     </div>

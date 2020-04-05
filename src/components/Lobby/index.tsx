@@ -1,30 +1,15 @@
 import { SocketIO } from "boardgame.io/multiplayer";
 import { Client } from "boardgame.io/react";
 import React, { useEffect } from "react";
-import { Redirect, useParams } from "react-router-dom";
-import { SERVER_URL } from "../config/client";
-import { useStoreActions, useStoreState } from "../store";
-import { MosaicBoard } from "./MosaicBoard";
-import { MosaicGame } from "./MosaicGame";
-
-export const CreateGame: React.FC = () => {
-  const createGameRoom = useStoreActions(s => s.createGameRoom);
-  const roomID = useStoreState(s => s.roomID);
-
-  if (roomID) return <Redirect to={`/rooms/${roomID}`} />;
-
-  return (
-    <div>
-      <button onClick={() => createGameRoom(2)}>Create 2 player room</button>
-      <button onClick={() => createGameRoom(3)}>Create 3 player room</button>
-      <button onClick={() => createGameRoom(4)}>Create 4 player room</button>
-    </div>
-  );
-};
+import { useParams } from "react-router-dom";
+import { SERVER_URL } from "../../config/client";
+import { useStoreActions, useStoreState } from "../../store";
+import { GameBoard } from "../GameBoard";
+import { MosaicGame } from "../../game";
 
 const GameClient = Client({
   game: MosaicGame,
-  board: MosaicBoard,
+  board: GameBoard,
   multiplayer: SocketIO({ server: SERVER_URL })
 });
 

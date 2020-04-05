@@ -1,0 +1,46 @@
+@import "../../styles/variables";
+
+.CreateGame {
+  &__page {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  &__title {
+    font-size: 50px;
+    color: $c-dark;
+    margin: 0;
+  }
+
+  &__subtitle {
+    font-size: 32px;
+    color: $c-dark;
+    margin: 0;
+  }
+
+  &__options {
+    display: flex;
+  }
+
+  &__button {
+    border-radius: 10px;
+    display: block;
+    border: none;
+    padding: 56px 64px;
+    background: $c-dark-gray;
+    font-size: 24px;
+    font-weight: 600;
+    color: $c-dark;
+    margin: 24px;
+    cursor: pointer;
+
+    &:hover {
+      background: $c-green;
+      color: $c-white;
+    }
+  }
+}

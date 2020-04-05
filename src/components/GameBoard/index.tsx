@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { GameState, GameTileType, GameTile } from "./MosaicGame";
+import { GameState, GameTileType, GameTile } from "../../game";
 import { BoardProps } from "boardgame.io/react";
-import "../styles/board.scss";
+import "../../styles/board.scss";
 import { times, map } from "lodash";
 import cn from "classnames";
 
-export const MosaicBoard: React.FC<BoardProps<GameState>> = ({
+export const GameBoard: React.FC<BoardProps<GameState>> = ({
   G: State,
   moves,
   isActive,
