@@ -1,11 +1,12 @@
 import { SocketIO } from "boardgame.io/multiplayer";
 import { Client } from "boardgame.io/react";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { SERVER_URL } from "../../config/client";
 import { useStoreActions, useStoreState } from "../../store";
 import { GameBoard } from "../GameBoard";
 import { MosaicGame } from "../../game";
+import "./style.scss";
 
 const GameClient = Client({
   game: MosaicGame,
@@ -14,6 +15,18 @@ const GameClient = Client({
 });
 
 export const GameLobby = () => {
+  const [isGameRunning, setGameRunning] = useState(false);
+
+  return isGameRunning ? (
+    <GameLobbyPlay />
+  ) : (
+    <GameLobbySetup startGame={() => setGameRunning(true)} />
+  );
+};
+
+export const GameLobbySetup: React.FC<{ startGame(): void }> = ({
+  startGame
+}) => {
   const { id } = useParams();
   const nickname = useStoreState(s => s.nickname);
   const roomMetadata = useStoreState(s => s.roomMetadata);
@@ -32,6 +45,12 @@ export const GameLobby = () => {
   }, [loadRoomMetadata, id]);
 
   useEffect(() => {
+    if (gameRoomFull) {
+      setTimeout(() => startGame(), 1000);
+    }
+  }, [gameRoomFull]);
+
+  useEffect(() => {
     // find first empty seat ID
     const emptySeatID = roomMetadata?.players.find(p => !p.name)?.id;
     const alreadyJoined = roomMetadata?.players.find(p => {
@@ -43,24 +62,48 @@ export const GameLobby = () => {
     }
   }, [roomMetadata]);
 
-  if (gameRoomFull) {
-    return <GameClient playerID={String(activeRoomPlayer?.playerID)} />;
-  }
-
   return (
-    <div>
-      {roomMetadata && (
-        <div>
-          {roomMetadata.players?.map(player => {
-            return player.name ? (
-              <div key={player.id}>Player: {player.name}</div>
-            ) : (
-              <div key={player.id}>Empty seat </div>
-            );
-          })}
-        </div>
+    <div className="Lobby__page">
+      <div className="Lobby__title">Invite Players</div>
+      <div className="Lobby__subtitle">
+        Send a link to your friends to invite them to your game
+      </div>
+      <div className="Lobby__link">
+        {SERVER_URL}/games/{id}
+      </div>
+
+      <div className="Lobby__players">
+        {roomMetadata
+          ? roomMetadata.players?.map(player => {
+              return player.name ? (
+                <div
+                  key={player.id}
+                  className="Lobby__player Lobby__player--active"
+                >
+                  {player.name} {player.name === nickname && "(You)"}
+                </div>
+              ) : (
+                <div
+                  key={player.id}
+                  className="Lobby__player Lobby__player--inactive"
+                >
+                  Waiting for player...
+                </div>
+              );
+            })
+          : "Loading..."}
+      </div>
+      {gameRoomFull ? (
+        <span>Starting Game...</span>
+      ) : (
+        <span>Game will start when all players join!</span>
       )}
-      <span>Game will start when all players join!</span>
     </div>
   );
+};
+
+export const GameLobbyPlay = () => {
+  const activeRoomPlayer = useStoreState(s => s.activeRoomPlayer);
+
+  return <GameClient playerID={String(activeRoomPlayer?.playerID)} />;
 };

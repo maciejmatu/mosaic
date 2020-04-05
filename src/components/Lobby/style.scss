@@ -1,0 +1,84 @@
+@import "../../styles/variables";
+
+.Lobby {
+  &__page {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  &__title {
+    font-size: 50px;
+    color: $c-dark;
+    margin: 0;
+  }
+
+  &__subtitle {
+    font-size: 24px;
+    color: $c-dark;
+    margin: 12px 0 0;
+  }
+
+  &__link {
+    border: 3px solid #c4c4c4;
+    background: #f9f9f9;
+    font-size: 18px;
+    padding: 16px 32px;
+    font-weight: 700;
+    text-align: center;
+    border-radius: 6px;
+    margin: 36px 0;
+  }
+
+  &__options {
+    display: flex;
+  }
+
+  &__button {
+    border-radius: 10px;
+    display: block;
+    border: none;
+    padding: 56px 64px;
+    background: $c-dark-gray;
+    font-size: 24px;
+    font-weight: 600;
+    color: $c-dark;
+    margin: 24px;
+    cursor: pointer;
+
+    &:hover {
+      background: $c-green;
+      color: $c-white;
+    }
+  }
+
+  &__players {
+    height: 150px;
+  }
+
+  &__player {
+    display: flex;
+    align-items: center;
+    margin: 12px 0;
+
+    &::before {
+      display: block;
+      content: "";
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      margin-right: 16px;
+    }
+
+    &--active::before {
+      background-color: $c-green;
+    }
+
+    &--inactive::before {
+      background-color: $c-yellow;
+    }
+  }
+}
