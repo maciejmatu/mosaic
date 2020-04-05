@@ -69,7 +69,7 @@ export const GameLobbySetup: React.FC<{ startGame(): void }> = ({
         Send a link to your friends to invite them to your game
       </div>
       <div className="Lobby__link">
-        {SERVER_URL}/games/{id}
+        {SERVER_URL}/rooms/{id}
       </div>
 
       <div className="Lobby__players">
