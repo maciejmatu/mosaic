@@ -46,6 +46,7 @@ declare module "boardgame.io/react" {
   export interface ClientProps<PlayerID = DefaultPlayerID> {
     gameID?: string;
     playerID?: PlayerID;
+    credentials?: string;
     debug?: boolean;
   }
 

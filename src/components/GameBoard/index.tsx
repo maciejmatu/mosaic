@@ -1,13 +1,11 @@
-import React, { useState } from "react";
-import { GameState, GameTileType, GameTile } from "../../game";
 import { BoardProps } from "boardgame.io/react";
+import React, { useState } from "react";
+import { GameState, GameTile, GameTileType } from "../../game";
 import "../../styles/board.scss";
-import { times, map } from "lodash";
-import cn from "classnames";
 import { BoardContext } from "./BoardContext";
+import { PlayerBoard } from "./PlayerBoard";
 import { PlayerControls } from "./PlayerControls";
 import { Scoreboard } from "./Scoreboard";
-import { PlayerBoard } from "./PlayerBoard";
 import { TilesBoard } from "./TilesBoard";
 
 export interface SelectedTiles {

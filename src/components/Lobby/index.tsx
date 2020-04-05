@@ -2,10 +2,11 @@ import { SocketIO } from "boardgame.io/multiplayer";
 import { Client } from "boardgame.io/react";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { isProduction } from "../../config";
 import { SERVER_URL } from "../../config/client";
+import { MosaicGame } from "../../game";
 import { useStoreActions, useStoreState } from "../../store";
 import { GameBoard } from "../GameBoard";
-import { MosaicGame } from "../../game";
 import "./style.scss";
 
 const GameClient = Client({
@@ -68,9 +69,7 @@ export const GameLobbySetup: React.FC<{ startGame(): void }> = ({
       <div className="Lobby__subtitle">
         Send a link to your friends to invite them to your game
       </div>
-      <div className="Lobby__link">
-        {SERVER_URL}/rooms/{id}
-      </div>
+      <div className="Lobby__link">{window.location.href}</div>
 
       <div className="Lobby__players">
         {roomMetadata
@@ -103,7 +102,15 @@ export const GameLobbySetup: React.FC<{ startGame(): void }> = ({
 };
 
 export const GameLobbyPlay = () => {
+  const { id } = useParams();
   const activeRoomPlayer = useStoreState(s => s.activeRoomPlayer);
 
-  return <GameClient playerID={String(activeRoomPlayer?.playerID)} />;
+  return (
+    <GameClient
+      gameID={id}
+      playerID={String(activeRoomPlayer?.playerID)}
+      credentials={activeRoomPlayer?.credential}
+      debug={!isProduction}
+    />
+  );
 };
