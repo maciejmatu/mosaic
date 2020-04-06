@@ -38,7 +38,8 @@ export enum GameTileType {
   B = "tile-b",
   C = "tile-c",
   D = "tile-d",
-  E = "tile-e"
+  E = "tile-e",
+  BEGIN = "tile-begin"
 }
 
 export interface GameTile {

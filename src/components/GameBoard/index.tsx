@@ -1,12 +1,12 @@
 import { BoardProps } from "boardgame.io/react";
 import React, { useState } from "react";
 import { GameState, GameTile, GameTileType } from "../../game";
-import "../../styles/board.scss";
 import { BoardContext } from "./BoardContext";
 import { PlayerBoard } from "./PlayerBoard";
 import { PlayerControls } from "./PlayerControls";
 import { Scoreboard } from "./Scoreboard";
 import { TilesBoard } from "./TilesBoard";
+import "./style.scss";
 
 export interface SelectedTiles {
   tiles: GameTile[];
@@ -18,7 +18,8 @@ export const tileColorModifier: { [key in GameTileType]: string } = {
   [GameTileType.B]: "type-b",
   [GameTileType.C]: "type-c",
   [GameTileType.D]: "type-d",
-  [GameTileType.E]: "type-e"
+  [GameTileType.E]: "type-e",
+  [GameTileType.BEGIN]: "type-begin"
 };
 
 export const GameBoard: React.FC<BoardProps<GameState>> = ({
@@ -27,7 +28,8 @@ export const GameBoard: React.FC<BoardProps<GameState>> = ({
   isActive,
   ctx,
   playerID,
-  undo
+  undo,
+  gameMetadata
 }) => {
   const [selectedTiles, setSelectedTiles] = useState<SelectedTiles | undefined>(
     undefined
@@ -55,7 +57,8 @@ export const GameBoard: React.FC<BoardProps<GameState>> = ({
         undo,
         pickTiles,
         selectedTiles,
-        setSelectedTiles
+        setSelectedTiles,
+        playersInfo: gameMetadata
       }}
     >
       <PlayerControls />

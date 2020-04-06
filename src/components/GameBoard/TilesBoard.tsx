@@ -1,8 +1,8 @@
-import React from "react";
-import { useBoardContext } from "./BoardContext";
 import times from "lodash/times";
-import cn from "classnames";
-import { tileColorModifier } from ".";
+import React from "react";
+import { GameTileType } from "../../game";
+import { useBoardContext } from "./BoardContext";
+import { TileFull, TileEmptySlot } from "./Tile";
 
 export const TilesBoard = () => {
   const { State, selectedTiles, setSelectedTiles } = useBoardContext();
@@ -17,12 +17,13 @@ export const TilesBoard = () => {
                 const tile = tileGroup[index];
 
                 if (tile) {
-                  const isSelected = selectedTiles?.tiles.find(
+                  const isSelected = !!selectedTiles?.tiles.find(
                     ({ id }) => id === tile.id
                   );
 
                   return (
-                    <div
+                    <TileFull
+                      type={tile.type}
                       onClick={() => {
                         setSelectedTiles({
                           groupId: tileGroupIndex,
@@ -32,22 +33,12 @@ export const TilesBoard = () => {
                         });
                       }}
                       key={tile.id}
-                      className={cn(
-                        "Tile",
-                        `Tile--${tileColorModifier[tile.type]}`,
-                        {
-                          "Tile--selected": isSelected
-                        }
-                      )}
-                    >
-                      {tile.id}
-                    </div>
+                      isSelected={isSelected}
+                    />
                   );
                 }
 
-                return (
-                  <div key={`fill-${index}`} className="Tile Tile--skeleton" />
-                );
+                return <TileEmptySlot key={`empty-tile-${index}`} />;
               })}
             </div>
           );
@@ -57,26 +48,22 @@ export const TilesBoard = () => {
       <div className="TilesMiddleContainer">
         {/* render special begin tile */}
         {!State.beginTileOwner && (
-          <div
-            className={cn("Tile", `Tile--type-begin`, {
-              "Tile--selected": selectedTiles?.groupId === "middle"
-            })}
-          >
-            B
-          </div>
+          <TileFull
+            type={GameTileType.BEGIN}
+            isSelected={selectedTiles?.groupId === "middle"}
+          />
         )}
 
         {State.tileMiddleGroup.map(tile => {
-          const isSelected = selectedTiles?.tiles.find(
+          const isSelected = !!selectedTiles?.tiles.find(
             ({ id }) => id === tile.id
           );
 
           return (
-            <div
+            <TileFull
+              type={tile.type}
               key={tile.id}
-              className={cn("Tile", `Tile--${tileColorModifier[tile.type]}`, {
-                "Tile--selected": isSelected
-              })}
+              isSelected={isSelected}
               onClick={() => {
                 setSelectedTiles({
                   groupId: "middle",
@@ -85,9 +72,7 @@ export const TilesBoard = () => {
                   )
                 });
               }}
-            >
-              {tile.id}
-            </div>
+            />
           );
         })}
       </div>

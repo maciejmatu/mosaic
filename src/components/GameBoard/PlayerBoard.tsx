@@ -1,18 +1,27 @@
-import React from "react";
-import { useBoardContext } from "./BoardContext";
-import { tileColorModifier } from ".";
-import cn from "classnames";
 import times from "lodash/times";
+import React from "react";
+import { GameTileType } from "../../game";
+import { useBoardContext } from "./BoardContext";
+import cn from "classnames";
+import { TileEmptySlot, TileFull, TileTypeSlot } from "./Tile";
 
 export const PlayerBoard = () => {
-  const { State, playerID, selectedTiles, pickTiles } = useBoardContext();
+  const {
+    State,
+    playerID,
+    selectedTiles,
+    pickTiles,
+    isActive
+  } = useBoardContext();
 
   const playerBoard = State.players[playerID];
 
   return (
     <div>
-      <h4>Player board</h4>
-      <div className="PlayerBoard">
+      <div className={cn("PlayerBoard", isActive && "PlayerBoard--active")}>
+        <span className="PlayerBoard__hint">
+          {isActive ? "Make a move" : "Waiting..."}
+        </span>
         <div className="PlayerBoard__left">
           {playerBoard.leftSlots.map((slot, slotIndex) => {
             return (
@@ -34,18 +43,15 @@ export const PlayerBoard = () => {
                   .reverse()
                   .map((tile, index) => {
                     return tile ? (
-                      <div
+                      <TileFull
                         key={tile.id}
-                        className={`TemporarySlot__tile Tile Tile--${
-                          tileColorModifier[tile.type]
-                        }`}
-                      >
-                        {tile.id}
-                      </div>
+                        type={tile.type}
+                        className="TemporarySlot__tile"
+                      />
                     ) : (
-                      <div
-                        key={`fill-${index}`}
-                        className="TemporarySlot__tile Tile Tile--skeleton"
+                      <TileEmptySlot
+                        key={`empty-tile-${index}`}
+                        className="TemporarySlot__tile"
                       />
                     );
                   })}
@@ -59,20 +65,16 @@ export const PlayerBoard = () => {
             return (
               <div className="SlotRow" key={rowIndex}>
                 {slotRow.map((slot, slotIndex) => {
-                  return (
-                    <div
-                      key={`${rowIndex}-${slotIndex}`}
-                      className={cn(
-                        "Tile",
-                        `Tile--${tileColorModifier[slot.type]}`,
-                        "SlotRow__tile",
-                        {
-                          "SlotRow__tile--filled": !!slot.tile
-                        }
-                      )}
-                    >
-                      {slot.tile?.id}
-                    </div>
+                  const tileProps = {
+                    type: slot.type,
+                    key: `${rowIndex}-${slotIndex}`,
+                    className: "SlotRow__tile"
+                  };
+
+                  return slot.tile ? (
+                    <TileFull {...tileProps} />
+                  ) : (
+                    <TileTypeSlot {...tileProps} />
                   );
                 })}
               </div>
@@ -97,32 +99,23 @@ export const PlayerBoard = () => {
 
             if (tile === "begin-tile") {
               return (
-                <div
-                  key="begin-tile"
-                  className={cn(
-                    "Tile",
-                    "TemporarySlot__tile",
-                    `Tile--type-begin`
-                  )}
-                >
-                  B
-                </div>
+                <TileFull
+                  type={GameTileType.BEGIN}
+                  className="TemporarySlot__tile"
+                />
               );
             }
 
             return tile ? (
-              <div
+              <TileFull
+                className="TemporarySlot__tile"
+                type={tile.type}
                 key={tile.id}
-                className={`TemporarySlot__tile Tile Tile--${
-                  tileColorModifier[tile.type]
-                }`}
-              >
-                {tile.id}
-              </div>
+              />
             ) : (
-              <div
+              <TileEmptySlot
                 key={`fill-${index}`}
-                className="TemporarySlot__tile Tile Tile--skeleton"
+                className="TemporarySlot__tile"
               />
             );
           })}

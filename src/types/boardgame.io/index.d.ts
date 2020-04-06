@@ -19,6 +19,7 @@ declare module "boardgame.io/react" {
     moves: Moves;
     gameID: string;
     playerID: PlayerID;
+    gameMetadata: any;
     isActive: boolean;
     isMultiplayer: boolean;
     isConnected: boolean;

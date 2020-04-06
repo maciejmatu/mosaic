@@ -17,6 +17,7 @@ interface IBoardContext {
   ): void;
   selectedTiles?: SelectedTiles;
   setSelectedTiles(tiles: SelectedTiles): void;
+  playersInfo: { id: string; name: string }[];
 }
 
 export const BoardContext = createContext({} as IBoardContext);

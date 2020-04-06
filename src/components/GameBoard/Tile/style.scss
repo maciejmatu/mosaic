@@ -1,0 +1,55 @@
+@import "../../../styles/variables";
+
+.Tile {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  flex-shrink: 0;
+
+  cursor: pointer;
+
+  &--empty-slot {
+    background: #f0f2f8;
+    box-shadow: inset 2px 2px 0px rgba(0, 0, 0, 0.15),
+      inset -2px -2px 0px rgba(255, 255, 255, 0.35);
+  }
+
+  &--slot {
+    opacity: 0.3;
+  }
+
+  &--full {
+    box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.15);
+  }
+
+  &--selected {
+    box-shadow: 0 0 0 3px rgb(10, 73, 133);
+  }
+
+  &--type-a {
+    background: url("../../../assets/svg/tile-yellow.svg");
+  }
+
+  &--type-b {
+    background: url("../../../assets/svg/tile-blue.svg");
+  }
+
+  &--type-c {
+    background: url("../../../assets/svg/tile-purple.svg");
+  }
+
+  &--type-d {
+    background: url("../../../assets/svg/tile-pink.svg");
+  }
+
+  &--type-e {
+    background: url("../../../assets/svg/tile-green.svg");
+  }
+
+  &--type-begin {
+    background: url("../../../assets/svg/tile-begin.svg");
+  }
+}
