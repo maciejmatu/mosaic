@@ -17,6 +17,9 @@
     "classnames": "^2.2.6",
     "concurrently": "^5.1.0",
     "easy-peasy": "^3.3.0",
+    "i18next": "^19.3.4",
+    "i18next-browser-languagedetector": "^4.0.2",
+    "i18next-parser": "^1.0.2",
     "koa-mount": "^4.0.0",
     "koa-static": "^5.0.0",
     "koa2-connect-history-api-fallback": "^0.1.2",
@@ -25,6 +28,7 @@
     "node-sass": "^4.13.1",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
+    "react-i18next": "^11.3.4",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.0",
     "ts-node": "^8.8.1",
@@ -37,7 +41,8 @@
     "test": "react-scripts test",
     "client": "react-scripts start",
     "server": "ts-node -O '{\"module\": \"commonjs\"}' ./server/index.ts",
-    "server:prod": "ts-node -T -O '{\"module\": \"commonjs\"}' ./server/index.ts"
+    "server:prod": "ts-node -T -O '{\"module\": \"commonjs\"}' ./server/index.ts",
+    "extract-messages": "i18next 'src/**/*.{tsx,ts}'"
   },
   "eslintConfig": {
     "extends": "react-app"

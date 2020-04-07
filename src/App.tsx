@@ -3,7 +3,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  useHistory
+  useHistory,
 } from "react-router-dom";
 import { GameLobby } from "./components/Lobby";
 import { StoreProvider } from "easy-peasy";
@@ -11,21 +11,22 @@ import { initializeStore, useStoreState } from "./store";
 import {
   NICKNAME_STORAGE_KEY,
   PLAYER_STORAGE_KEY,
-  StoreModel
+  StoreModel,
 } from "./store/store";
 import { CreateGame } from "./components/CreateGame";
 import { SetupNickname } from "./components/SetupNickname";
+import { ButtonLang } from "./components/ButtonLang";
 
 const savedNickname = localStorage.getItem(NICKNAME_STORAGE_KEY);
 const savedPlayer = localStorage.getItem(PLAYER_STORAGE_KEY);
 
 const store = initializeStore({
   nickname: savedNickname || null,
-  activeRoomPlayer: savedPlayer ? JSON.parse(savedPlayer) : null
+  activeRoomPlayer: savedPlayer ? JSON.parse(savedPlayer) : null,
 } as StoreModel);
 
 const App: React.FC = () => {
-  const nickname = useStoreState(s => s.nickname);
+  const nickname = useStoreState((s) => s.nickname);
   const history = useHistory();
 
   return (
@@ -44,6 +45,7 @@ const App: React.FC = () => {
           <SetupNickname onSubmit={() => history.push("/")} />
         </Route>
       </Switch>
+      <ButtonLang />
     </div>
   );
 };

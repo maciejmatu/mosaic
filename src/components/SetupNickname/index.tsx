@@ -3,12 +3,13 @@ import "./style.scss";
 import { useStoreState, useStoreActions } from "../../store";
 import { useState } from "react";
 import { ButtonBack } from "../ButtonBack";
+import { Trans } from "react-i18next";
 
 export const SetupNickname: React.FC<{ onSubmit?: () => void }> = ({
-  onSubmit
+  onSubmit,
 }) => {
-  const initialNickname = useStoreState(s => s.nickname);
-  const persistNickname = useStoreActions(s => s.setNickname);
+  const initialNickname = useStoreState((s) => s.nickname);
+  const persistNickname = useStoreActions((s) => s.setNickname);
   const [nickname, setNickname] = useState(initialNickname || "");
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -20,16 +21,18 @@ export const SetupNickname: React.FC<{ onSubmit?: () => void }> = ({
   return (
     <div className="SetupNickname__page">
       <ButtonBack to="/" />
-      <h3 className="SetupNickname__title">Set your nickname</h3>
+      <h3 className="SetupNickname__title">
+        <Trans>Set your nickname</Trans>
+      </h3>
       <form onSubmit={handleSubmit} className="SetupNickname__form">
         <input
           className="SetupNickname__input"
           type="text"
-          onChange={e => setNickname(e.target.value)}
+          onChange={(e) => setNickname(e.target.value)}
           value={nickname}
         />
         <button className="SetupNickname__button" type="submit">
-          Submit
+          <Trans>Save</Trans>
         </button>
       </form>
     </div>
