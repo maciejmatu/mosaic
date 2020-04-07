@@ -386,7 +386,7 @@ export const MosaicGame = {
     },
     pickTiles: {
       undoable: true,
-      client: false,
+      client: true,
       move: (G: GameState, ctx, tiles, tileGroupId, targetSlotId) => {
         // make sure user doesn't do two moves in a turn
         if (ctx.numMoves > 0) return;
