@@ -1,44 +1,32 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Mosaic Game
 
-## Available Scripts
+![Header](https://github.com/maciejmatu/mosaic/blob/master/public/header.png)
 
-In the project directory, you can run:
+### What is Mosaic
 
-### `yarn start`
+It's an online multiplayer board game heavily inspired by [Azul](https://boardgamegeek.com/boardgame/230802/azul) created by Michael Kiesling. The gameplay rules and stages are the same with a small difference: counting points and mixing used tiles is done automatically.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+If you are new to Azul and Mosaic, you can find rules and playthrough on [youtube](https://www.youtube.com/watch?v=csJL-78NEPQ)
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+### How it started
 
-### `yarn test`
+This project started as a quick personal weekend hackathon, but I decided to continue developing it and make it open to people who want to play board games with their friends, but can't because some dude in China ate a Bat...
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Tech stack
 
-### `yarn build`
+The core of the game is:
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- [boardgame.io](https://boardgame.io/)
+- Typescript
+- React
+- Node.js
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+I also use other libraries to play around with them or test their capabilities, but those may change with time.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Design
 
-### `yarn eject`
+I'm not that great of a designer so I asked [Matt Karski](https://www.behance.net/MateuszKarski) for help, and he came up with a great playful design!
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Development
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+If you are interested in joining the project, [send me a message](mailto:maciek.matuszewski@gmail.com), or simply create an issue on which you would like to work and we can discuss it there!
