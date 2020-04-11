@@ -4,6 +4,7 @@ import { GameTileType } from "../../game";
 import { useBoardContext } from "./BoardContext";
 import cn from "classnames";
 import { TileEmptySlot, TileFull, TileTypeSlot } from "./Tile";
+import { Trans } from "react-i18next";
 
 export const PlayerBoard = () => {
   const {
@@ -11,7 +12,7 @@ export const PlayerBoard = () => {
     playerID,
     selectedTiles,
     pickTiles,
-    isActive
+    isActive,
   } = useBoardContext();
 
   const playerBoard = State.players[playerID];
@@ -20,7 +21,7 @@ export const PlayerBoard = () => {
     <div>
       <div className={cn("PlayerBoard", isActive && "PlayerBoard--active")}>
         <span className="PlayerBoard__hint">
-          {isActive ? "Make a move" : "Waiting..."}
+          {isActive ? <Trans>Make a move</Trans> : <Trans>Waiting...</Trans>}
         </span>
         <div className="PlayerBoard__left">
           {playerBoard.leftSlots.map((slot, slotIndex) => {
@@ -68,7 +69,7 @@ export const PlayerBoard = () => {
                   const tileProps = {
                     type: slot.type,
                     key: `${rowIndex}-${slotIndex}`,
-                    className: "SlotRow__tile"
+                    className: "SlotRow__tile",
                   };
 
                   return slot.tile ? (
@@ -94,7 +95,7 @@ export const PlayerBoard = () => {
             }
           }}
         >
-          {times(7, index => {
+          {times(7, (index) => {
             const tile = playerBoard.minusPoints[index];
 
             if (tile === "begin-tile") {

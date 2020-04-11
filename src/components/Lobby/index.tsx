@@ -8,11 +8,12 @@ import { MosaicGame } from "../../game";
 import { useStoreActions, useStoreState } from "../../store";
 import { GameBoard } from "../GameBoard";
 import "./style.scss";
+import { Trans } from "react-i18next";
 
 const GameClient = Client({
   game: MosaicGame,
   board: GameBoard,
-  multiplayer: SocketIO({ server: SERVER_URL })
+  multiplayer: SocketIO({ server: SERVER_URL }),
 });
 
 export const GameLobby = () => {
@@ -26,16 +27,17 @@ export const GameLobby = () => {
 };
 
 export const GameLobbySetup: React.FC<{ startGame(): void }> = ({
-  startGame
+  startGame,
 }) => {
   const { id } = useParams();
-  const nickname = useStoreState(s => s.nickname);
-  const roomMetadata = useStoreState(s => s.roomMetadata);
-  const loadRoomMetadata = useStoreActions(s => s.loadRoomMetadata);
-  const joinRoom = useStoreActions(s => s.joinRoom);
-  const activeRoomPlayer = useStoreState(s => s.activeRoomPlayer);
+  const nickname = useStoreState((s) => s.nickname);
+  const roomMetadata = useStoreState((s) => s.roomMetadata);
+  const loadRoomMetadata = useStoreActions((s) => s.loadRoomMetadata);
+  const joinRoom = useStoreActions((s) => s.joinRoom);
+  const activeRoomPlayer = useStoreState((s) => s.activeRoomPlayer);
 
-  const gameRoomFull = roomMetadata?.players.filter(p => !p.name).length === 0;
+  const gameRoomFull =
+    roomMetadata?.players.filter((p) => !p.name).length === 0;
 
   useEffect(() => {
     const intervalID = setInterval(() => {
@@ -53,8 +55,8 @@ export const GameLobbySetup: React.FC<{ startGame(): void }> = ({
 
   useEffect(() => {
     // find first empty seat ID
-    const emptySeatID = roomMetadata?.players.find(p => !p.name)?.id;
-    const alreadyJoined = roomMetadata?.players.find(p => {
+    const emptySeatID = roomMetadata?.players.find((p) => !p.name)?.id;
+    const alreadyJoined = roomMetadata?.players.find((p) => {
       return p.id === activeRoomPlayer?.playerID && p.name === nickname;
     });
 
@@ -65,15 +67,17 @@ export const GameLobbySetup: React.FC<{ startGame(): void }> = ({
 
   return (
     <div className="Lobby__page">
-      <div className="Lobby__title">Invite Players</div>
+      <div className="Lobby__title">
+        <Trans>Invite Players</Trans>
+      </div>
       <div className="Lobby__subtitle">
-        Send a link to your friends to invite them to your game
+        <Trans>Send a link to your friends to invite them to your game</Trans>
       </div>
       <div className="Lobby__link">{window.location.href}</div>
 
       <div className="Lobby__players">
         {roomMetadata
-          ? roomMetadata.players?.map(player => {
+          ? roomMetadata.players?.map((player) => {
               return player.name ? (
                 <div
                   key={player.id}
@@ -86,16 +90,20 @@ export const GameLobbySetup: React.FC<{ startGame(): void }> = ({
                   key={player.id}
                   className="Lobby__player Lobby__player--inactive"
                 >
-                  Waiting for player...
+                  <Trans>Waiting for player...</Trans>
                 </div>
               );
             })
           : "Loading..."}
       </div>
       {gameRoomFull ? (
-        <span>Starting Game...</span>
+        <span>
+          <Trans>Starting Game...</Trans>
+        </span>
       ) : (
-        <span>Game will start when all players join!</span>
+        <span>
+          <Trans>Game will start when all players join!</Trans>
+        </span>
       )}
     </div>
   );
@@ -103,7 +111,7 @@ export const GameLobbySetup: React.FC<{ startGame(): void }> = ({
 
 export const GameLobbyPlay = () => {
   const { id } = useParams();
-  const activeRoomPlayer = useStoreState(s => s.activeRoomPlayer);
+  const activeRoomPlayer = useStoreState((s) => s.activeRoomPlayer);
 
   return (
     <GameClient

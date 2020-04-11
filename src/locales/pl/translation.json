@@ -1,7 +1,24 @@
 {
+  "Back": "Wstecz",
+  "Change Nickname": "Zmień Pseudonim",
   "Create Game Room": "Stwórz nową grę",
+  "End Turn": "Zakończ Ruch",
+  "Game will start when all players join!": "Gra rozpocznie się jak dołączą wszyscy gracze!",
+  "Invite Players": "Zaproś Graczy",
+  "Make a move": "Wykonaj ruch",
   "Players": "Graczy",
   "Save": "Zapisz",
+  "Send a link to your friends to invite them to your game": "Wyślij adres strony do znajomych aby zaprosić ich do gry",
   "Set your nickname": "Ustaw swój pseudonim",
+  "Starting Game": {
+    "": "Rozpoczynanie Gry..."
+  },
+  "Undo": "Cofnij",
+  "Waiting for player": {
+    "": "Oczekiwanie na graczy..."
+  },
+  "Waiting": {
+    "": "Oczekiwanie..."
+  },
   "Welcome {{nickname}}!": "Witaj {{nickname}}!"
 }

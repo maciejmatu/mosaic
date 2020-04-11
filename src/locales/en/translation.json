@@ -1,7 +1,24 @@
 {
+  "Back": "Back",
+  "Change Nickname": "Change Nickname",
   "Create Game Room": "Create Game Room",
+  "End Turn": "End Turn",
+  "Game will start when all players join!": "Game will start when all players join!",
+  "Invite Players": "Invite Players",
+  "Make a move": "Make a move",
   "Players": "Players",
   "Save": "Save",
+  "Send a link to your friends to invite them to your game": "Send a link to your friends to invite them to your game",
   "Set your nickname": "Set your nickname",
+  "Starting Game": {
+    "": "Starting Game..."
+  },
+  "Undo": "Undo",
+  "Waiting for player": {
+    "": "Waiting for player..."
+  },
+  "Waiting": {
+    "": "Waiting..."
+  },
   "Welcome {{nickname}}!": "Welcome {{nickname}}!"
 }

@@ -1,5 +1,6 @@
 import React from "react";
 import { useBoardContext } from "./BoardContext";
+import { Trans } from "react-i18next";
 
 export const PlayerControls = () => {
   const { isActive, playerID, moves, ctx, undo } = useBoardContext();
@@ -14,10 +15,10 @@ export const PlayerControls = () => {
         }}
         disabled={!ctx.numMoves && !isActive}
       >
-        End Turn
+        <Trans>End Turn</Trans>
       </button>
       <button className="Button Button--undo" onClick={() => undo()}>
-        Undo
+        <Trans>Undo</Trans>
       </button>
     </div>
   );
