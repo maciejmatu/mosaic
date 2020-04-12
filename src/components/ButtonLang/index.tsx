@@ -6,7 +6,6 @@ import "./style.scss";
 
 export const ButtonLang = () => {
   const { i18n } = useTranslation();
-  console.log(i18n);
 
   return (
     <div className="Lang">

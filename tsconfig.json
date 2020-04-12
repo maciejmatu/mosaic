@@ -14,7 +14,8 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true
+    "noEmit": true,
+    "baseUrl": "src"
   },
   "include": ["src", "server"],
   "exclude": ["**/node_modules"]

@@ -1,0 +1,17 @@
+@import "~styles/variables";
+
+.Logo {
+  color: $c-pink;
+
+  &--large {
+    width: 600px;
+  }
+
+  &--medium {
+    width: 320px;
+  }
+
+  &--small {
+    width: 135px;
+  }
+}

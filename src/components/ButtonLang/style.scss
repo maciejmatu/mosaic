@@ -1,7 +1,9 @@
+@import "~styles/variables";
+
 .Lang {
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: 40px;
+  right: 60px;
   display: flex;
 
   &__button {
@@ -10,8 +12,15 @@
     background: none;
     display: block;
     font-size: 14px;
+    color: $c-white;
+    opacity: 0.7;
+
+    &:hover {
+      opacity: 1;
+    }
 
     &--active {
+      opacity: 1;
       text-decoration: underline;
     }
   }
