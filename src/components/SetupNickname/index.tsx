@@ -4,6 +4,7 @@ import { useStoreState, useStoreActions } from "../../store";
 import { useState } from "react";
 import { ButtonBack } from "../ButtonBack";
 import { Trans } from "react-i18next";
+import { Button } from "components/Button";
 
 export const SetupNickname: React.FC<{ onSubmit?: () => void }> = ({
   onSubmit,
@@ -31,9 +32,9 @@ export const SetupNickname: React.FC<{ onSubmit?: () => void }> = ({
           onChange={(e) => setNickname(e.target.value)}
           value={nickname}
         />
-        <button className="SetupNickname__button" type="submit">
+        <Button type="submit">
           <Trans>Save</Trans>
-        </button>
+        </Button>
       </form>
     </div>
   );

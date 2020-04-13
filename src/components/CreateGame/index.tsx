@@ -6,18 +6,27 @@ import { ButtonChangeNickname } from "../ButtonChangeNickname";
 import { Trans } from "react-i18next";
 import { Logo } from "components/Logo";
 import { ButtonLang } from "components/ButtonLang";
+import { Button, ButtonProps } from "components/Button";
 
 interface Props {
   playerCount: number;
   onClick(playerCount: number): void;
 }
 
-const CreateGameButton: React.FC<Props> = ({ playerCount, onClick }) => {
+const CreateGameButton: React.FC<ButtonProps & Props> = ({
+  playerCount,
+  onClick,
+  ...props
+}) => {
   return (
-    <button className="CreateGameButton" onClick={() => onClick(playerCount)}>
+    <Button
+      className="CreateGameButton"
+      onClick={() => onClick(playerCount)}
+      {...props}
+    >
       <span className="CreateGameButton__count">{playerCount}</span>
       <Trans>Players</Trans>
-    </button>
+    </Button>
   );
 };
 
@@ -41,9 +50,21 @@ export const CreateGame: React.FC = () => {
         <Trans>How many players do you want to play with?</Trans>
       </h3>
       <div className="CreateGame__options">
-        <CreateGameButton playerCount={2} onClick={createGameRoom} />
-        <CreateGameButton playerCount={3} onClick={createGameRoom} />
-        <CreateGameButton playerCount={4} onClick={createGameRoom} />
+        <CreateGameButton
+          theme="pink"
+          playerCount={2}
+          onClick={createGameRoom}
+        />
+        <CreateGameButton
+          theme="yellow"
+          playerCount={3}
+          onClick={createGameRoom}
+        />
+        <CreateGameButton
+          theme="blue"
+          playerCount={4}
+          onClick={createGameRoom}
+        />
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-@import "~styles/variables";
+@import "~styles/shared";
 
 .CreateGame {
   &__logo {
@@ -39,41 +39,7 @@
 .CreateGameButton {
   width: 120px;
   height: 120px;
-  border-radius: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  border: none;
-  border-top: 2px solid #bf77dd;
-  border-left: 2px solid #bf77dd;
-  border-bottom: 2px solid #8634a8;
-  border-right: 2px solid #8634a8;
-  font-size: 16px;
-  font-weight: 600;
-  color: $c-white;
   margin: 24px;
-  cursor: pointer;
-
-  &:hover {
-    border-bottom: 2px solid #bf77dd;
-    border-right: 2px solid #bf77dd;
-    border-top: 2px solid #8634a8;
-    border-left: 2px solid #8634a8;
-    transform: translate(2px, 2px);
-  }
-
-  &:nth-of-type(1) {
-    background: #ef69b1;
-  }
-
-  &:nth-of-type(2) {
-    background: #ffc876;
-  }
-
-  &:nth-of-type(3) {
-    background: #5cdefb;
-  }
 
   &__count {
     font-size: 32px;

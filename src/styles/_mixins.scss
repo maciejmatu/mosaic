@@ -1,0 +1,11 @@
+@mixin shadow($inset: false, $color: #b264d2) {
+  $dark: darken($color, 20%);
+  $light: lighten($color, 10%);
+  $size: 3px;
+
+  @if $inset {
+    box-shadow: inset $size $size 0px $dark;
+  } @else {
+    box-shadow: $size $size 0px $dark, -#{$size} -#{$size} 0px $light;
+  }
+}
