@@ -9,6 +9,11 @@ import { useStoreActions, useStoreState } from "../../store";
 import { GameBoard } from "../GameBoard";
 import "./style.scss";
 import { Trans } from "react-i18next";
+import { LobbyPage, SmallLogo } from "components/LobbyPage";
+import { Button } from "components/Button";
+import Tippy from "@tippyjs/react";
+import "tippy.js/dist/tippy.css"; // optional
+import { ButtonLang } from "components/ButtonLang";
 
 const GameClient = Client({
   game: MosaicGame,
@@ -35,6 +40,18 @@ export const GameLobbySetup: React.FC<{ startGame(): void }> = ({
   const loadRoomMetadata = useStoreActions((s) => s.loadRoomMetadata);
   const joinRoom = useStoreActions((s) => s.joinRoom);
   const activeRoomPlayer = useStoreState((s) => s.activeRoomPlayer);
+  const [tooltipVisible, setTooltipVisible] = useState(false);
+
+  const supportsCopying = !!document.queryCommandSupported("copy");
+  function copyToClipboard(value: string) {
+    var textField = document.createElement("textarea");
+    textField.innerText = value;
+    textField.style.opacity = "0";
+    document.body.appendChild(textField);
+    textField.select();
+    document.execCommand("copy");
+    textField.remove();
+  }
 
   const gameRoomFull =
     roomMetadata?.players.filter((p) => !p.name).length === 0;
@@ -49,8 +66,9 @@ export const GameLobbySetup: React.FC<{ startGame(): void }> = ({
 
   useEffect(() => {
     if (gameRoomFull) {
-      setTimeout(() => startGame(), 1000);
+      setTimeout(() => startGame(), 2000);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gameRoomFull]);
 
   useEffect(() => {
@@ -63,49 +81,74 @@ export const GameLobbySetup: React.FC<{ startGame(): void }> = ({
     if (!alreadyJoined && emptySeatID !== undefined && nickname && id) {
       joinRoom({ playerID: emptySeatID, playerName: nickname, roomID: id });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [roomMetadata]);
 
   return (
-    <div className="Lobby__page">
+    <LobbyPage>
+      <SmallLogo />
+      <ButtonLang />
+
       <div className="Lobby__title">
         <Trans>Invite Players</Trans>
       </div>
       <div className="Lobby__subtitle">
         <Trans>Send a link to your friends to invite them to your game</Trans>
       </div>
-      <div className="Lobby__link">{window.location.href}</div>
+      <div className="Lobby__link">
+        <div className="Lobby__link-box">{window.location.href}</div>
+        {supportsCopying && (
+          <Tippy
+            visible={tooltipVisible}
+            offset={[0, 12]}
+            content={<Trans>Copied!</Trans>}
+          >
+            <div className="Lobby__link-button">
+              <Button
+                onClick={() => {
+                  copyToClipboard(window.location.href);
+                  setTooltipVisible(true);
+                  setTimeout(() => setTooltipVisible(false), 1500);
+                }}
+              >
+                <Trans>Copy</Trans>
+              </Button>
+            </div>
+          </Tippy>
+        )}
+      </div>
 
       <div className="Lobby__players">
-        {roomMetadata
-          ? roomMetadata.players?.map((player) => {
-              return player.name ? (
-                <div
-                  key={player.id}
-                  className="Lobby__player Lobby__player--active"
-                >
-                  {player.name} {player.name === nickname && "(You)"}
-                </div>
-              ) : (
-                <div
-                  key={player.id}
-                  className="Lobby__player Lobby__player--inactive"
-                >
-                  <Trans>Waiting for player...</Trans>
-                </div>
-              );
-            })
-          : "Loading..."}
+        {roomMetadata ? (
+          roomMetadata.players?.map((player) => {
+            return player.name ? (
+              <div
+                key={player.id}
+                className="Lobby__player Lobby__player--active"
+              >
+                {player.name} {player.name === nickname && "(You)"}
+              </div>
+            ) : (
+              <div
+                key={player.id}
+                className="Lobby__player Lobby__player--inactive"
+              >
+                <Trans>Waiting for player...</Trans>
+              </div>
+            );
+          })
+        ) : (
+          <Trans>Loading...</Trans>
+        )}
       </div>
-      {gameRoomFull ? (
-        <span>
+      <div className="Lobby__status-message">
+        {gameRoomFull ? (
           <Trans>Starting Game...</Trans>
-        </span>
-      ) : (
-        <span>
+        ) : (
           <Trans>Game will start when all players join!</Trans>
-        </span>
-      )}
-    </div>
+        )}
+      </div>
+    </LobbyPage>
   );
 };
 

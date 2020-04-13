@@ -1,3 +1,18 @@
 {
-  "Create Game Room": "Stwórz nową grę"
+  "Create Game Room": "Stwórz nową grę",
+  "Waiting for player...": {
+    "": "Oczekiwanie na graczy..."
+  },
+  "Starting Game": {
+    "": "Rozpoczynanie Gry..."
+  },
+  "Type in something cool": {
+    "": "Wpisz coś fajnego..."
+  },
+  "Waiting for player": {
+    "": "Waiting for player..."
+  },
+  "Waiting": {
+    "": "Oczekiwanie..."
+  }
 }

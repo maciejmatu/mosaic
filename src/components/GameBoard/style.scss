@@ -9,7 +9,7 @@
   color: $c-white;
   border-radius: 5px;
   cursor: pointer;
-  margin: 0 10px;
+  margin-left: 20px;
 
   &--confirm {
     background: $c-green;
@@ -29,24 +29,28 @@
 
   &[disabled] {
     opacity: 0.3;
-    cursor: pointer;
+    cursor: initial;
   }
 }
 
 .PlayerControls {
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 12px;
 }
 
 .Scoreboard {
   padding: 20px;
-  border-radius: 0 0 0 10px;
-  background-color: #f7f8fb;
-  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+  border-radius: 0 10px 0 0;
+  background-color: $c-violet;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.25);
   position: absolute;
-  top: 0;
-  right: 0;
+  bottom: 0;
+  left: 0;
+  font-size: 18px;
+  color: $c-white;
+  font-weight: 500;
+  line-height: 1.4;
 
   &__row {
     min-width: 100px;
@@ -57,15 +61,26 @@
 }
 
 .GameBoard {
+  height: 100vh;
   display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  &__tiles {
+    display: flex;
+  }
 }
 
 .TilesMiddleContainer {
-  display: inline-grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-gap: 20px;
-  padding: 20px;
+  display: flex;
+  max-width: 60%;
+  flex-wrap: wrap;
   margin: 20px;
+
+  > * {
+    margin: 10px;
+  }
 }
 
 .TilesContainer {
@@ -89,9 +104,10 @@
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
   margin-left: 20px;
   position: relative;
+  box-shadow: 0 0 0 4px rgba($c-yellow, 0.3);
 
   &--active {
-    box-shadow: 0 0 0 4px rgba($c-green, 0.5);
+    box-shadow: 0 0 0 4px rgba($c-green, 0.7);
   }
 
   &__hint {
@@ -100,7 +116,7 @@
     font-weight: 800;
     position: absolute;
     top: 0;
-    right: 0;
+    left: 0;
     transform: translate(0, calc(-100% - 10px));
     color: $c-yellow;
   }

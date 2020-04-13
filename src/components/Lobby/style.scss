@@ -1,84 +1,81 @@
 @import "~styles/shared";
 
 .Lobby {
-  &__page {
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-  }
-
   &__title {
-    font-size: 50px;
-    color: $c-dark;
+    font-size: 42px;
+    color: $c-white;
+    font-weight: 500;
     margin: 0;
   }
 
   &__subtitle {
-    font-size: 24px;
-    color: $c-dark;
+    font-size: 20px;
+    color: $c-white;
     margin: 12px 0 0;
   }
 
   &__link {
-    border: 3px solid #c4c4c4;
-    background: #f9f9f9;
-    font-size: 18px;
-    padding: 16px 32px;
-    font-weight: 700;
-    text-align: center;
-    border-radius: 6px;
+    display: flex;
     margin: 36px 0;
+  }
+
+  &__link-box {
+    border: 3px solid darken($c-violet, 10%);
+    background: darken($c-violet, 5%);
+    font-size: 18px;
+    color: $c-white;
+    padding: 12px 32px;
+    font-weight: 400;
+    text-align: center;
+    border-radius: 10px;
+  }
+
+  &__link-button {
+    margin-left: 20px;
   }
 
   &__options {
     display: flex;
   }
 
-  &__button {
-    border-radius: 10px;
-    display: block;
-    border: none;
-    padding: 56px 64px;
-    background: $c-dark-gray;
-    font-size: 24px;
-    font-weight: 600;
-    color: $c-dark;
-    margin: 24px;
-    cursor: pointer;
-
-    &:hover {
-      background: $c-green;
-      color: $c-white;
-    }
-  }
-
   &__players {
-    height: 150px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: $c-white;
+    font-weight: 500;
+    font-size: 18px;
   }
 
   &__player {
-    display: flex;
-    align-items: center;
     margin: 12px 0;
+    font-weight: 500;
 
-    &::before {
+    &::after {
       display: block;
       content: "";
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      margin-right: 16px;
+      width: 100%;
+      height: 5px;
+      margin-top: 6px;
+      border-radius: 10px;
     }
 
-    &--active::before {
+    &--active::after {
       background-color: $c-green;
     }
 
-    &--inactive::before {
+    &--inactive::after {
       background-color: $c-yellow;
     }
+  }
+
+  &__status-message {
+    margin-top: 20px;
+    color: $c-white;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.3;
+    text-align: center;
   }
 }

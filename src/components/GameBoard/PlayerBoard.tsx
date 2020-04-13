@@ -5,6 +5,7 @@ import { useBoardContext } from "./BoardContext";
 import cn from "classnames";
 import { TileEmptySlot, TileFull, TileTypeSlot } from "./Tile";
 import { Trans } from "react-i18next";
+import { PlayerControls } from "./PlayerControls";
 
 export const PlayerBoard = () => {
   const {
@@ -13,15 +14,25 @@ export const PlayerBoard = () => {
     selectedTiles,
     pickTiles,
     isActive,
+    ctx,
   } = useBoardContext();
 
   const playerBoard = State.players[playerID];
 
   return (
     <div>
+      <PlayerControls />
       <div className={cn("PlayerBoard", isActive && "PlayerBoard--active")}>
         <span className="PlayerBoard__hint">
-          {isActive ? <Trans>Make a move</Trans> : <Trans>Waiting...</Trans>}
+          {isActive ? (
+            ctx.numMoves > 0 ? (
+              <Trans>End turn or undo move</Trans>
+            ) : (
+              <Trans>Make a move</Trans>
+            )
+          ) : (
+            <Trans>Waiting...</Trans>
+          )}
         </span>
         <div className="PlayerBoard__left">
           {playerBoard.leftSlots.map((slot, slotIndex) => {

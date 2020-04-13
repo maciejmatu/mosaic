@@ -6,13 +6,15 @@ export interface ButtonProps {
   theme?: "pink" | "yellow" | "blue";
 }
 
-export const Button: React.FC<
+export const Button = React.forwardRef<
+  HTMLButtonElement,
   ButtonProps & ButtonHTMLAttributes<HTMLButtonElement>
-> = ({ onClick, className, theme = "pink", ...props }) => {
+>(({ className, theme = "pink", ...props }, ref) => {
   return (
     <button
+      ref={ref}
       className={classNames(style.button, style[`button--${theme}`], className)}
       {...props}
     />
   );
-};
+});

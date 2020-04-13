@@ -14,7 +14,7 @@ export const ButtonLang = () => {
           key={lang}
           className={cn(
             "Lang__button",
-            i18n.language === lang && "Lang__button--active"
+            i18n.language.split("-")[0] === lang && "Lang__button--active"
           )}
           onClick={() => {
             i18n.changeLanguage(lang);

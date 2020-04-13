@@ -8,17 +8,22 @@ export const PlayerControls = () => {
   return (
     <div className="PlayerControls">
       <button
+        disabled={!ctx.numMoves}
+        className="Button Button--undo"
+        onClick={() => undo()}
+      >
+        <Trans>Undo</Trans>
+      </button>
+
+      <button
         className="Button Button--confirm"
         key={playerID}
         onClick={() => {
           moves.endTurn();
         }}
-        disabled={!ctx.numMoves && !isActive}
+        disabled={!ctx.numMoves || !isActive}
       >
         <Trans>End Turn</Trans>
-      </button>
-      <button className="Button Button--undo" onClick={() => undo()}>
-        <Trans>Undo</Trans>
       </button>
     </div>
   );

@@ -4,9 +4,9 @@ import { useStoreActions, useStoreState } from "../../store";
 import "./style.scss";
 import { ButtonChangeNickname } from "../ButtonChangeNickname";
 import { Trans } from "react-i18next";
-import { Logo } from "components/Logo";
 import { ButtonLang } from "components/ButtonLang";
 import { Button, ButtonProps } from "components/Button";
+import { LobbyPage, SmallLogo } from "components/LobbyPage";
 
 interface Props {
   playerCount: number;
@@ -38,8 +38,8 @@ export const CreateGame: React.FC = () => {
   if (roomID) return <Redirect to={`/rooms/${roomID}`} />;
 
   return (
-    <div className="CreateGame__page">
-      <Logo size="small" className="CreateGame__logo" />
+    <LobbyPage>
+      <SmallLogo />
       <ButtonChangeNickname />
       <ButtonLang />
 
@@ -66,6 +66,6 @@ export const CreateGame: React.FC = () => {
           onClick={createGameRoom}
         />
       </div>
-    </div>
+    </LobbyPage>
   );
 };

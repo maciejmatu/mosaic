@@ -1,24 +1,23 @@
 {
   "Back": "Wstecz",
   "Change Nickname": "Zmień Pseudonim",
+  "Copied!": "Skopiowano!",
+  "Copy": "Skopiuj",
   "End Turn": "Zakończ Ruch",
+  "End turn or undo move": "Zakończ lub cofnij ruch",
   "Game will start when all players join!": "Gra rozpocznie się jak dołączą wszyscy gracze!",
   "How many players do you want to play with?": "Dla ilu graczy chcesz stworzyć grę?",
   "Invite Players": "Zaproś Graczy",
+  "Loading...": "Ładowanie...",
   "Make a move": "Wykonaj ruch",
   "Players": "Graczy",
   "Save": "Zapisz",
   "Send a link to your friends to invite them to your game": "Wyślij adres strony do znajomych aby zaprosić ich do gry",
   "Set your nickname": "Ustaw swój pseudonim",
-  "Starting Game": {
-    "": "Rozpoczynanie Gry..."
-  },
+  "Starting Game...": "Rozpoczynanie gry...",
+  "Type in something cool...": "Wpisz coś fajnego...",
   "Undo": "Cofnij",
-  "Waiting for player": {
-    "": "Oczekiwanie na graczy..."
-  },
-  "Waiting": {
-    "": "Oczekiwanie..."
-  },
+  "Waiting for player...": "Oczekiwanie na gracza...",
+  "Waiting...": "Oczekiwanie...",
   "Welcome {{nickname}}!": "Witaj {{nickname}}!"
 }

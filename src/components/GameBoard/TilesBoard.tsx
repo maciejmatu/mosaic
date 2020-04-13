@@ -9,11 +9,11 @@ export const TilesBoard = () => {
 
   return (
     <>
-      <div className="GameBoard">
+      <div className="GameBoard__tiles">
         {State.tileGroups.map((tileGroup, tileGroupIndex) => {
           return (
             <div key={tileGroupIndex} className="TilesContainer">
-              {times(4, index => {
+              {times(4, (index) => {
                 const tile = tileGroup[index];
 
                 if (tile) {
@@ -29,7 +29,7 @@ export const TilesBoard = () => {
                           groupId: tileGroupIndex,
                           tiles: tileGroup.filter(
                             ({ type }) => tile.type === type
-                          )
+                          ),
                         });
                       }}
                       key={tile.id}
@@ -54,7 +54,7 @@ export const TilesBoard = () => {
           />
         )}
 
-        {State.tileMiddleGroup.map(tile => {
+        {State.tileMiddleGroup.map((tile) => {
           const isSelected = !!selectedTiles?.tiles.find(
             ({ id }) => id === tile.id
           );
@@ -69,7 +69,7 @@ export const TilesBoard = () => {
                   groupId: "middle",
                   tiles: State.tileMiddleGroup.filter(
                     ({ type }) => tile.type === type
-                  )
+                  ),
                 });
               }}
             />

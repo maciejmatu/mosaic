@@ -1,3 +1,15 @@
 {
-  "Create Game Room": "Create Game Room"
+  "Create Game Room": "Create Game Room",
+  "Starting Game": {
+    "": "Starting Game..."
+  },
+  "Type in something cool": {
+    "": "Type in something cool..."
+  },
+  "Waiting for player": {
+    "": "Waiting for player..."
+  },
+  "Waiting": {
+    "": "Waiting..."
+  }
 }

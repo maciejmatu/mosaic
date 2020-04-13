@@ -3,8 +3,11 @@ import "./style.scss";
 import { useStoreState, useStoreActions } from "../../store";
 import { useState } from "react";
 import { ButtonBack } from "../ButtonBack";
-import { Trans } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 import { Button } from "components/Button";
+import { LobbyPage, SmallLogo } from "components/LobbyPage";
+import { ButtonLang } from "components/ButtonLang";
+import { Input } from "components/Input";
 
 export const SetupNickname: React.FC<{ onSubmit?: () => void }> = ({
   onSubmit,
@@ -12,6 +15,7 @@ export const SetupNickname: React.FC<{ onSubmit?: () => void }> = ({
   const initialNickname = useStoreState((s) => s.nickname);
   const persistNickname = useStoreActions((s) => s.setNickname);
   const [nickname, setNickname] = useState(initialNickname || "");
+  const { t } = useTranslation();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -20,22 +24,27 @@ export const SetupNickname: React.FC<{ onSubmit?: () => void }> = ({
   };
 
   return (
-    <div className="SetupNickname__page">
+    <LobbyPage>
       <ButtonBack to="/" />
+      <ButtonLang />
+      <SmallLogo />
+
       <h3 className="SetupNickname__title">
         <Trans>Set your nickname</Trans>
       </h3>
+
       <form onSubmit={handleSubmit} className="SetupNickname__form">
-        <input
+        <Input
+          placeholder={t("Type in something cool...")}
           className="SetupNickname__input"
-          type="text"
           onChange={(e) => setNickname(e.target.value)}
           value={nickname}
         />
+
         <Button type="submit">
           <Trans>Save</Trans>
         </Button>
       </form>
-    </div>
+    </LobbyPage>
   );
 };

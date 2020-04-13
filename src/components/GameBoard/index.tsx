@@ -19,7 +19,7 @@ export const tileColorModifier: { [key in GameTileType]: string } = {
   [GameTileType.C]: "type-c",
   [GameTileType.D]: "type-d",
   [GameTileType.E]: "type-e",
-  [GameTileType.BEGIN]: "type-begin"
+  [GameTileType.BEGIN]: "type-begin",
 };
 
 export const GameBoard: React.FC<BoardProps<GameState>> = ({
@@ -29,7 +29,7 @@ export const GameBoard: React.FC<BoardProps<GameState>> = ({
   ctx,
   playerID,
   undo,
-  gameMetadata
+  gameMetadata,
 }) => {
   const [selectedTiles, setSelectedTiles] = useState<SelectedTiles | undefined>(
     undefined
@@ -58,13 +58,14 @@ export const GameBoard: React.FC<BoardProps<GameState>> = ({
         pickTiles,
         selectedTiles,
         setSelectedTiles,
-        playersInfo: gameMetadata
+        playersInfo: gameMetadata,
       }}
     >
-      <PlayerControls />
-      <Scoreboard />
-      <TilesBoard />
-      <PlayerBoard />
+      <div className="GameBoard">
+        <Scoreboard />
+        <TilesBoard />
+        <PlayerBoard />
+      </div>
     </BoardContext.Provider>
   );
 };
