@@ -13,11 +13,16 @@ export const PlayerBoard = () => {
     playerID,
     selectedTiles,
     pickTiles,
+    playersInfo,
     isActive,
     ctx,
   } = useBoardContext();
 
   const playerBoard = State.players[playerID];
+
+  const currentPlayerName = playersInfo.find(
+    (p) => String(p.id) === ctx.currentPlayer
+  )!.name;
 
   return (
     <div>
@@ -31,7 +36,12 @@ export const PlayerBoard = () => {
               <Trans>Make a move</Trans>
             )
           ) : (
-            <Trans>Waiting...</Trans>
+            <Trans>
+              <span className="PlayerBoard__hint-accent">
+                {{ currentPlayerName }}
+              </span>{" "}
+              is making a move...
+            </Trans>
           )}
         </span>
         <div className="PlayerBoard__left">
@@ -112,6 +122,7 @@ export const PlayerBoard = () => {
             if (tile === "begin-tile") {
               return (
                 <TileFull
+                  key="begin-tile"
                   type={GameTileType.BEGIN}
                   className="TemporarySlot__tile"
                 />

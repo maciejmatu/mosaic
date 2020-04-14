@@ -8,7 +8,7 @@ export const PlayerControls = () => {
   return (
     <div className="PlayerControls">
       <button
-        disabled={!ctx.numMoves}
+        disabled={!ctx.numMoves || !isActive}
         className="Button Button--undo"
         onClick={() => undo()}
       >

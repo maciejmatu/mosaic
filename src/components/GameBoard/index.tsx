@@ -3,10 +3,10 @@ import React, { useState } from "react";
 import { GameState, GameTile, GameTileType } from "../../game";
 import { BoardContext } from "./BoardContext";
 import { PlayerBoard } from "./PlayerBoard";
-import { PlayerControls } from "./PlayerControls";
 import { Scoreboard } from "./Scoreboard";
 import { TilesBoard } from "./TilesBoard";
 import "./style.scss";
+import { GameOver } from "./GameOver";
 
 export interface SelectedTiles {
   tiles: GameTile[];
@@ -62,6 +62,7 @@ export const GameBoard: React.FC<BoardProps<GameState>> = ({
       }}
     >
       <div className="GameBoard">
+        {!!ctx.gameover && <GameOver />}
         <Scoreboard />
         <TilesBoard />
         <PlayerBoard />

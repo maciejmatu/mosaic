@@ -39,7 +39,7 @@ export enum GameTileType {
   C = "tile-c",
   D = "tile-d",
   E = "tile-e",
-  BEGIN = "tile-begin"
+  BEGIN = "tile-begin",
 }
 
 export interface GameTile {
@@ -53,14 +53,14 @@ const DEFAULT_TILE_ORDER = [
   GameTileType.B,
   GameTileType.C,
   GameTileType.D,
-  GameTileType.E
+  GameTileType.E,
 ];
 // specifies how much minus points user gets for each item
 const INDEX_TO_MINUS_POINTS = [1, 1, 2, 2, 2, 3, 3];
 const PLAYERS_COUNT_TO_GROUPS = {
   2: 5,
   3: 7,
-  4: 9
+  4: 9,
 };
 
 function shiftBy<T>(offset: number, list: Array<T>): Array<T> {
@@ -101,12 +101,12 @@ function getTileGroups(
     }
   }
 
-  updatedTiles = updatedTiles.filter(t => !idsToRemove.includes(t.id));
+  updatedTiles = updatedTiles.filter((t) => !idsToRemove.includes(t.id));
 
   return {
     tileGroups,
     updatedUsedTiles: clearUsedTiles ? [] : usedTiles,
-    updatedTilesInPool: updatedTiles
+    updatedTilesInPool: updatedTiles,
   };
 }
 
@@ -120,7 +120,7 @@ export const MosaicGame = {
         return times<GameTile>(TILE_TYPE_COUNT, (index: number) => {
           return {
             type: tileType,
-            id: String(groupIndex * TILE_TYPE_COUNT + index)
+            id: String(groupIndex * TILE_TYPE_COUNT + index),
           };
         });
       })
@@ -139,7 +139,7 @@ export const MosaicGame = {
     const scoreboard = {};
     const players = {};
 
-    times(ctx.numPlayers, index => {
+    times(ctx.numPlayers, (index) => {
       const id = index.toString();
       const initialPlayer: Player = {
         id,
@@ -149,20 +149,20 @@ export const MosaicGame = {
           Array(2).fill(null),
           Array(3).fill(null),
           Array(4).fill(null),
-          Array(5).fill(null)
+          Array(5).fill(null),
         ],
         // permanent board
-        rightSlots: times(5, rowIndex => {
+        rightSlots: times(5, (rowIndex) => {
           return shiftBy(rowIndex, DEFAULT_TILE_ORDER).map(
             (tileType, colIndex) => ({
               type: tileType,
               filled: false,
               colIndex,
-              rowIndex
+              rowIndex,
             })
           );
         }),
-        minusPoints: []
+        minusPoints: [],
       };
 
       players[id] = initialPlayer;
@@ -177,7 +177,7 @@ export const MosaicGame = {
       scoreboard,
       tileMiddleGroup: [],
       players,
-      shouldEndGame: false
+      shouldEndGame: false,
     };
 
     return initialState;
@@ -186,50 +186,6 @@ export const MosaicGame = {
   endIf: (G: GameState, ctx) => {
     if (G.shouldEndGame) {
       console.log("END GAME");
-      // count bonus points
-
-      each(G.players, player => {
-        const bonusRows: number[] = []; // array of row ids
-        const bonusColors: GameTileType[] = [];
-        const bonusColumns: number[] = []; // array of col ids
-
-        const tileTypeCount: object = {};
-        const tileColumnCount: object = {};
-
-        player.rightSlots.forEach(slotRow => {
-          let filledSlotRows = 0;
-
-          slotRow.forEach(slot => {
-            if (slot.tile) {
-              filledSlotRows++;
-              tileTypeCount[slot.tile.type] =
-                tileTypeCount[slot.tile.type] + 1 || 1;
-
-              if (tileTypeCount[slot.tile.type] === 5) {
-                bonusColors.push(slot.tile.type);
-              }
-
-              tileColumnCount[slot.colIndex] =
-                tileColumnCount[slot.colIndex + 1] || 1;
-
-              if (tileColumnCount[slot.colIndex] === 5) {
-                bonusColumns.push(slot.colIndex);
-              }
-            }
-          });
-
-          if (filledSlotRows === slotRow.length) {
-            bonusRows.push(slotRow[0].rowIndex);
-          }
-        });
-
-        const rowBonusPoints = bonusRows.length * 2; // +2 points per row
-        const columnBonusPoints = bonusColumns.length * 8; // +8 points per color
-        const colorBonusPoints = bonusColors.length * 10; // +10 points per color
-
-        G.scoreboard[player.id] +=
-          rowBonusPoints + columnBonusPoints + colorBonusPoints;
-      });
 
       let winner = { score: 0, id: "" };
 
@@ -242,7 +198,7 @@ export const MosaicGame = {
 
       // select winner
       return {
-        winner
+        winner,
       };
     } else {
       return false;
@@ -259,7 +215,7 @@ export const MosaicGame = {
         if (shouldReinitialize(G)) {
           let shouldEndGame = false;
           // count points
-          each(G.players, player => {
+          each(G.players, (player) => {
             let points = 0;
 
             // move tiles from left to right
@@ -270,7 +226,7 @@ export const MosaicGame = {
 
               const [firstTile, ...restTiles] = filledRowTiles;
               const targetSlot = player.rightSlots[rowIndex].find(
-                slot => slot.type === firstTile.type
+                (slot) => slot.type === firstTile.type
               );
 
               if (!targetSlot) {
@@ -302,8 +258,10 @@ export const MosaicGame = {
                 points++;
               }
 
-              const columnAsList = player.rightSlots.map(row => {
-                return row.find(slot => slot.colIndex === targetSlot.colIndex)!;
+              const columnAsList = player.rightSlots.map((row) => {
+                return row.find(
+                  (slot) => slot.colIndex === targetSlot.colIndex
+                )!;
               });
               let rowRightIndex = targetSlot.rowIndex + 1;
               let rowLeftIndex = targetSlot.rowIndex - 1;
@@ -340,9 +298,10 @@ export const MosaicGame = {
             player.minusPoints = [];
 
             // check if should end game
-            player.rightSlots.forEach(row => {
+            player.rightSlots.forEach((row) => {
               let filledSlotsCount = 0;
-              row.forEach(slot => {
+
+              row.forEach((slot) => {
                 if (slot.tile) filledSlotsCount++;
               });
 
@@ -356,6 +315,50 @@ export const MosaicGame = {
           });
 
           if (shouldEndGame) {
+            // count bonus points
+            each(G.players, (player) => {
+              const bonusRows: number[] = []; // array of row ids
+              const bonusColors: GameTileType[] = [];
+              const bonusColumns: number[] = []; // array of col ids
+
+              const tileTypeCount: object = {};
+              const tileColumnCount: object = {};
+
+              player.rightSlots.forEach((slotRow) => {
+                let filledSlotRows = 0;
+
+                slotRow.forEach((slot) => {
+                  if (slot.tile) {
+                    filledSlotRows++;
+                    tileTypeCount[slot.tile.type] =
+                      tileTypeCount[slot.tile.type] + 1 || 1;
+
+                    if (tileTypeCount[slot.tile.type] === 5) {
+                      bonusColors.push(slot.tile.type);
+                    }
+
+                    tileColumnCount[slot.colIndex] =
+                      tileColumnCount[slot.colIndex + 1] || 1;
+
+                    if (tileColumnCount[slot.colIndex] === 5) {
+                      bonusColumns.push(slot.colIndex);
+                    }
+                  }
+                });
+
+                if (filledSlotRows === slotRow.length) {
+                  bonusRows.push(slotRow[0].rowIndex);
+                }
+              });
+
+              const rowBonusPoints = bonusRows.length * 2; // +2 points per row
+              const columnBonusPoints = bonusColumns.length * 8; // +8 points per color
+              const colorBonusPoints = bonusColors.length * 10; // +10 points per color
+
+              G.scoreboard[player.id] +=
+                rowBonusPoints + columnBonusPoints + colorBonusPoints;
+            });
+
             G.shouldEndGame = true;
           }
 
@@ -363,7 +366,7 @@ export const MosaicGame = {
           const {
             updatedTilesInPool,
             updatedUsedTiles,
-            tileGroups
+            tileGroups,
           } = getTileGroups(
             G.tilesInPool,
             G.usedTiles,
@@ -382,7 +385,7 @@ export const MosaicGame = {
         } else {
           ctx.events.endTurn();
         }
-      }
+      },
     },
     pickTiles: {
       undoable: true,
@@ -408,7 +411,7 @@ export const MosaicGame = {
         } else {
           const targetSlot = playerBoard.leftSlots[targetSlotId];
 
-          let emptySlotCount = targetSlot.filter(s => s === null).length;
+          let emptySlotCount = targetSlot.filter((s) => s === null).length;
 
           // cannot place tiles of different color
           if (targetSlot[0] && targetSlot[0].type !== selectedTiles[0].type) {
@@ -418,12 +421,12 @@ export const MosaicGame = {
           // cannot place it color is already filled
           const correspondingRightSlot = playerBoard.rightSlots[
             targetSlotId
-          ].find(slot => slot.type === selectedTiles[0].type);
+          ].find((slot) => slot.type === selectedTiles[0].type);
           if (!!correspondingRightSlot?.tile) {
             return INVALID_MOVE;
           }
 
-          selectedTiles.forEach(tile => {
+          selectedTiles.forEach((tile) => {
             if (emptySlotCount > 0) {
               targetSlot[targetSlot.indexOf(null)] = tile;
             } else {
@@ -443,7 +446,7 @@ export const MosaicGame = {
           playerBoard.minusPoints.push("begin-tile");
           G.beginTileOwner = ctx.currentPlayer;
         }
-      }
-    }
-  }
+      },
+    },
+  },
 };

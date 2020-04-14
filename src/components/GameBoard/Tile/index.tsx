@@ -2,7 +2,7 @@ import React from "react";
 import cn from "classnames";
 import "./style.scss";
 import { tileColorModifier } from "..";
-import { GameTileType } from "../../../game";
+import { GameTileType } from "game";
 
 interface Props {
   type: GameTileType;

@@ -4,7 +4,7 @@ import "./style.scss";
 import classNames from "classnames";
 
 interface Props {
-  size: "small" | "medium" | "large";
+  size: "small" | "medium" | "large" | "tiny";
   className?: string;
 }
 

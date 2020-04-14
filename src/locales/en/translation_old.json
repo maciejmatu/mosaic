@@ -11,5 +11,13 @@
   },
   "Waiting": {
     "": "Waiting..."
-  }
+  },
+  "Waiting...": "Waiting...",
+  "You are {place + 1}rd Better luck next time!": "You are {place + 1}rd Better luck next time!",
+  "You are {place + 1}th Better luck next time!": "You are {place + 1}th Better luck next time!",
+  "You Got {place + 1}nd place. Good Job!": "You Got {place + 1}nd place. Good Job!",
+  "You are 3rd Better luck next time!": "You are 3rd Better luck next time!",
+  "You are 4th Better luck next time!": "You are 4th Better luck next time!",
+  "You Got 2nd place. Good Job!": "You Got 2nd place. Good Job!",
+  "<0>{currentPlayerInfo.name}</0> is making a move...": "<0>{currentPlayerInfo.name}</0> is making a move..."
 }

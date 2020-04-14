@@ -1,10 +1,13 @@
 {
+  "<0>{{currentPlayerName}}</0> is making a move...": "<0>{{currentPlayerName}}</0> wykonuje ruch...",
   "Back": "Wstecz",
   "Change Nickname": "Zmień Pseudonim",
   "Copied!": "Skopiowano!",
   "Copy": "Skopiuj",
+  "Create new game": "Stwórz nową grę",
   "End Turn": "Zakończ Ruch",
   "End turn or undo move": "Zakończ lub cofnij ruch",
+  "Game Results": "Wyniki Rozgrywki",
   "Game will start when all players join!": "Gra rozpocznie się jak dołączą wszyscy gracze!",
   "How many players do you want to play with?": "Dla ilu graczy chcesz stworzyć grę?",
   "Invite Players": "Zaproś Graczy",
@@ -18,6 +21,9 @@
   "Type in something cool...": "Wpisz coś fajnego...",
   "Undo": "Cofnij",
   "Waiting for player...": "Oczekiwanie na gracza...",
-  "Waiting...": "Oczekiwanie...",
-  "Welcome {{nickname}}!": "Witaj {{nickname}}!"
+  "Welcome {{nickname}}!": "Witaj {{nickname}}!",
+  "You are 2nd. Good Job!": "Drugie Miejsce. Dobra robota!",
+  "You are 3rd. Better luck next time!": "Trzecie miejsce. Może następnym razem...",
+  "You are 4th. Better luck next time!": "Czwarte miejsce. Może następnym razem...",
+  "You Won!": "Wygrana!"
 }
