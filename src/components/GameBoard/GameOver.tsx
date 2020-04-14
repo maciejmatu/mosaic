@@ -5,7 +5,7 @@ import { Trans } from "react-i18next";
 import { useBoardContext } from "./BoardContext";
 
 export const GameOver = () => {
-  const { State, playerID, ctx, playersInfo } = useBoardContext();
+  const { State, playerID, playersInfo } = useBoardContext();
 
   const sortedWinners = sortBy(
     playersInfo.map((player) => ({

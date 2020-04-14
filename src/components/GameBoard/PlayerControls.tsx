@@ -1,30 +1,32 @@
 import React from "react";
 import { useBoardContext } from "./BoardContext";
 import { Trans } from "react-i18next";
+import { Button } from "components/Button";
 
 export const PlayerControls = () => {
-  const { isActive, playerID, moves, ctx, undo } = useBoardContext();
+  const { isActive, moves, ctx, undo } = useBoardContext();
 
   return (
     <div className="PlayerControls">
-      <button
+      <Button
+        theme="yellow"
+        size="small"
+        className="PlayerControls__button"
         disabled={!ctx.numMoves || !isActive}
-        className="Button Button--undo"
         onClick={() => undo()}
       >
         <Trans>Undo</Trans>
-      </button>
+      </Button>
 
-      <button
-        className="Button Button--confirm"
-        key={playerID}
-        onClick={() => {
-          moves.endTurn();
-        }}
+      <Button
+        theme="green"
+        onClick={() => moves.endTurn()}
+        className="PlayerControls__button"
+        size="small"
         disabled={!ctx.numMoves || !isActive}
       >
         <Trans>End Turn</Trans>
-      </button>
+      </Button>
     </div>
   );
 };

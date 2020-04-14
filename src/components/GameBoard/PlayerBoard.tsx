@@ -7,6 +7,23 @@ import { TileEmptySlot, TileFull, TileTypeSlot } from "./Tile";
 import { Trans } from "react-i18next";
 import { PlayerControls } from "./PlayerControls";
 
+function getMinusPointsForIndex(value: number): number | null {
+  switch (value) {
+    case 0:
+    case 1:
+      return -1;
+    case 2:
+    case 3:
+    case 4:
+      return -2;
+    case 5:
+    case 6:
+      return -3;
+    default:
+      return null;
+  }
+}
+
 export const PlayerBoard = () => {
   const {
     State,
@@ -28,6 +45,52 @@ export const PlayerBoard = () => {
     <div>
       <PlayerControls />
       <div className={cn("PlayerBoard", isActive && "PlayerBoard--active")}>
+        <div
+          className="PlayerBoard__minus-points MinusPoints"
+          onClick={() => {
+            if (selectedTiles) {
+              pickTiles(
+                selectedTiles?.tiles,
+                selectedTiles?.groupId,
+                "minus-points"
+              );
+            }
+          }}
+        >
+          {times(7, (index) => {
+            const tile = playerBoard.minusPoints[index];
+            const valueForIndex = getMinusPointsForIndex(index);
+
+            const Wrapper = ({ children }) => (
+              <div className="MinusPoints__item">
+                <span className="MinusPoints__penalty">{valueForIndex}</span>
+                {children}
+              </div>
+            );
+
+            if (tile === "begin-tile") {
+              return (
+                <Wrapper key="begin-tile">
+                  <TileFull
+                    type={GameTileType.BEGIN}
+                    className="MinusPoints__tile"
+                  />
+                </Wrapper>
+              );
+            }
+
+            return tile ? (
+              <Wrapper key={tile.id}>
+                <TileFull className="MinusPoints__tile" type={tile.type} />
+              </Wrapper>
+            ) : (
+              <Wrapper key={`fill-${index}`}>
+                <TileEmptySlot className="MinusPoints__tile" />
+              </Wrapper>
+            );
+          })}
+        </div>
+
         <span className="PlayerBoard__hint">
           {isActive ? (
             ctx.numMoves > 0 ? (
@@ -100,46 +163,6 @@ export const PlayerBoard = () => {
                   );
                 })}
               </div>
-            );
-          })}
-        </div>
-
-        <div
-          className="PlayerBoard__minus-points"
-          onClick={() => {
-            if (selectedTiles) {
-              pickTiles(
-                selectedTiles?.tiles,
-                selectedTiles?.groupId,
-                "minus-points"
-              );
-            }
-          }}
-        >
-          {times(7, (index) => {
-            const tile = playerBoard.minusPoints[index];
-
-            if (tile === "begin-tile") {
-              return (
-                <TileFull
-                  key="begin-tile"
-                  type={GameTileType.BEGIN}
-                  className="TemporarySlot__tile"
-                />
-              );
-            }
-
-            return tile ? (
-              <TileFull
-                className="TemporarySlot__tile"
-                type={tile.type}
-                key={tile.id}
-              />
-            ) : (
-              <TileEmptySlot
-                key={`fill-${index}`}
-                className="TemporarySlot__tile"
-              />
             );
           })}
         </div>

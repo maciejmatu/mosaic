@@ -3,49 +3,54 @@ import React from "react";
 import { GameTileType } from "../../game";
 import { useBoardContext } from "./BoardContext";
 import { TileFull, TileEmptySlot } from "./Tile";
+import classNames from "classnames";
+import sortBy from "lodash/sortBy";
 
 export const TilesBoard = () => {
-  const { State, selectedTiles, setSelectedTiles } = useBoardContext();
+  const { State, selectedTiles, setSelectedTiles, ctx } = useBoardContext();
 
   return (
-    <>
-      <div className="GameBoard__tiles">
-        {State.tileGroups.map((tileGroup, tileGroupIndex) => {
-          return (
-            <div key={tileGroupIndex} className="TilesContainer">
-              {times(4, (index) => {
-                const tile = tileGroup[index];
+    <div
+      className={classNames(
+        "TilesBoard",
+        `TilesBoard--${ctx.numPlayers}-players`
+      )}
+    >
+      {State.tileGroups.map((tileGroup, tileGroupIndex) => {
+        return (
+          <div key={tileGroupIndex} className="TilesBoard__tile TilesContainer">
+            {times(4, (index) => {
+              const tile = tileGroup[index];
 
-                if (tile) {
-                  const isSelected = !!selectedTiles?.tiles.find(
-                    ({ id }) => id === tile.id
-                  );
+              if (tile) {
+                const isSelected = !!selectedTiles?.tiles.find(
+                  ({ id }) => id === tile.id
+                );
 
-                  return (
-                    <TileFull
-                      type={tile.type}
-                      onClick={() => {
-                        setSelectedTiles({
-                          groupId: tileGroupIndex,
-                          tiles: tileGroup.filter(
-                            ({ type }) => tile.type === type
-                          ),
-                        });
-                      }}
-                      key={tile.id}
-                      isSelected={isSelected}
-                    />
-                  );
-                }
+                return (
+                  <TileFull
+                    type={tile.type}
+                    onClick={() => {
+                      setSelectedTiles({
+                        groupId: tileGroupIndex,
+                        tiles: tileGroup.filter(
+                          ({ type }) => tile.type === type
+                        ),
+                      });
+                    }}
+                    key={tile.id}
+                    isSelected={isSelected}
+                  />
+                );
+              }
 
-                return <TileEmptySlot key={`empty-tile-${index}`} />;
-              })}
-            </div>
-          );
-        })}
-      </div>
+              return <TileEmptySlot key={`empty-tile-${index}`} />;
+            })}
+          </div>
+        );
+      })}
 
-      <div className="TilesMiddleContainer">
+      <div className="TilesBoard__middle">
         {/* render special begin tile */}
         {!State.beginTileOwner && (
           <TileFull
@@ -54,7 +59,7 @@ export const TilesBoard = () => {
           />
         )}
 
-        {State.tileMiddleGroup.map((tile) => {
+        {sortBy(State.tileMiddleGroup, "type").map((tile) => {
           const isSelected = !!selectedTiles?.tiles.find(
             ({ id }) => id === tile.id
           );
@@ -76,6 +81,6 @@ export const TilesBoard = () => {
           );
         })}
       </div>
-    </>
+    </div>
   );
 };

@@ -1,52 +1,23 @@
 @import "~styles/shared";
 
-.Button {
-  border: none;
-  font-size: 18px;
-  text-transform: uppercase;
-  font-weight: 600;
-  padding: 12px 24px;
-  color: $c-white;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-left: 20px;
-
-  &--confirm {
-    background: $c-green;
-
-    &:not([disabled]):hover {
-      background: lighten($c-green, 10%);
-    }
-  }
-
-  &--undo {
-    background: $c-yellow;
-
-    &:not([disabled]):hover {
-      background: lighten($c-yellow, 10%);
-    }
-  }
-
-  &[disabled] {
-    opacity: 0.3;
-    cursor: initial;
-  }
-}
-
 .PlayerControls {
   display: flex;
   justify-content: flex-end;
   margin-bottom: 12px;
+
+  &__button {
+    margin-left: 20px;
+  }
 }
 
 .Scoreboard {
   padding: 20px;
-  border-radius: 0 10px 0 0;
+  border-radius: 10px 0 0 0;
   background-color: $c-violet;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.25);
   position: absolute;
   bottom: 0;
-  left: 0;
+  right: 0;
   font-size: 18px;
   color: $c-white;
   font-weight: 500;
@@ -60,26 +31,103 @@
   }
 }
 
+.MinusPoints {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  bottom: 0;
+  left: 0;
+  transform: translate(calc(-100% - 24px), 0);
+
+  &__item {
+    position: relative;
+    margin-top: 8px;
+  }
+
+  &__penalty {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translate(calc(-100% - 8px), -50%);
+    font-weight: 700;
+    font-size: 12px;
+    color: $c-dark-gray;
+  }
+
+  &__tile {
+  }
+}
+
 .GameBoard {
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding-bottom: 30px;
   flex-direction: column;
-
-  &__tiles {
-    display: flex;
-  }
 }
 
-.TilesMiddleContainer {
-  display: flex;
-  max-width: 60%;
-  flex-wrap: wrap;
-  margin: 20px;
+.TilesBoard {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: 2;
+  margin-bottom: 30px;
 
-  > * {
-    margin: 10px;
+  &__middle {
+    grid-column: 3 / span 3;
+    grid-row: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    > * {
+      margin: 8px;
+    }
+  }
+
+  &__tile {
+    &:nth-child(1) {
+      grid-column: 2;
+    }
+    &:nth-child(2) {
+      grid-column: 6;
+    }
+    &:nth-child(3) {
+      grid-column: 3;
+    }
+    &:nth-child(4) {
+      grid-column: 4;
+    }
+    &:nth-child(5) {
+      grid-column: 5;
+    }
+  }
+
+  &--3-players &__tile {
+    &:nth-child(3) {
+      grid-column: 2;
+    }
+    &:nth-child(4) {
+      grid-column: 3;
+    }
+    &:nth-child(5) {
+      grid-column: 4;
+    }
+    &:nth-child(6) {
+      grid-column: 5;
+    }
+    &:nth-child(7) {
+      grid-column: 6;
+    }
+  }
+
+  &--4-players &__middle {
+    grid-column: 2 / span 5;
+    grid-row: 1;
+  }
+
+  &--4-players &__tile {
+    grid-column: auto;
   }
 }
 
@@ -91,7 +139,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 8px;
-  padding: 32px;
+  padding: 28px;
 }
 
 .PlayerBoard {

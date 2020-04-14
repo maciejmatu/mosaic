@@ -1,8 +1,8 @@
 @import "~styles/shared";
 
 .Tile {
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -30,27 +30,7 @@
     box-shadow: 0 0 0 3px rgb(10, 73, 133);
   }
 
-  &--type-a {
-    background: url("../../../assets/svg/tile-yellow.svg");
-  }
-
-  &--type-b {
-    background: url("../../../assets/svg/tile-blue.svg");
-  }
-
-  &--type-c {
-    background: url("../../../assets/svg/tile-purple.svg");
-  }
-
-  &--type-d {
-    background: url("../../../assets/svg/tile-pink.svg");
-  }
-
-  &--type-e {
-    background: url("../../../assets/svg/tile-green.svg");
-  }
-
-  &--type-begin {
-    background: url("../../../assets/svg/tile-begin.svg");
+  > svg {
+    width: 100%;
   }
 }
