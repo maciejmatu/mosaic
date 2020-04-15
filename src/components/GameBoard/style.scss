@@ -77,6 +77,8 @@
     grid-column: 3 / span 3;
     grid-row: 1;
     display: flex;
+    flex-wrap: wrap;
+    padding: 10px;
     justify-content: center;
     align-items: center;
 
