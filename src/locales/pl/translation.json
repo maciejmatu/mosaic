@@ -1,4 +1,5 @@
 {
+  "{{score}} pts": "{{score}} pkt",
   "<0>{{currentPlayerName}}</0> is making a move...": "<0>{{currentPlayerName}}</0> wykonuje ruch...",
   "Back": "Wstecz",
   "Change Nickname": "Zmień Pseudonim",

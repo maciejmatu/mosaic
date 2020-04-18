@@ -1,0 +1,89 @@
+@import "~styles/shared";
+
+.sidebar {
+  position: absolute;
+  left: 0;
+  background: $c-violet;
+  z-index: 1;
+  width: auto;
+  height: 100%;
+  padding: 24px 50px 24px 16px;
+  display: flex;
+  align-items: center;
+  overflow: auto;
+  flex-direction: column;
+  box-shadow: 4px 0px 0px rgba(0, 0, 0, 0.14);
+  transform: translate(calc(-100% + 50px), 0);
+  transition: transform 0.2s ease;
+  border-radius: 0 20px 20px 0;
+
+  &:hover {
+    transform: translate(0, 0);
+  }
+
+  &::after {
+    content: "";
+    width: 2px;
+    height: 70px;
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 24px;
+    transform: translate(0, -50%);
+    background: $c-white;
+  }
+
+  &Board {
+    font-size: 10px;
+    margin: 30px 4px;
+    margin-left: 50px;
+    flex-shrink: 0;
+
+    :global(.MinusPoints__tile) {
+      background: lighten($c-violet, 8%);
+    }
+  }
+
+  &Logo {
+    margin-bottom: 20px;
+    flex-shrink: 0;
+  }
+}
+
+.playerName {
+  font-weight: 700;
+  color: $c-white;
+  font-size: 16px;
+  top: -6px;
+  transform: translate(0, -100%);
+  position: absolute;
+}
+
+.userScore {
+  margin: 10px 0 16px;
+  font-size: 24px;
+  color: $c-white;
+  font-weight: 700;
+
+  .scoreValue {
+    color: #3fe2c5;
+  }
+}
+
+.playerScore {
+  font-weight: 700;
+  color: #3fe2c5;
+  right: 0;
+  font-size: 16px;
+  top: -6px;
+  transform: translate(0, -100%);
+  position: absolute;
+}
+
+.activeBoard {
+  box-shadow: 0 0 0 3px lighten($c-green, 5%);
+
+  .playerName {
+    color: lighten($c-green, 10%);
+  }
+}

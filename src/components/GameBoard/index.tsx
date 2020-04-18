@@ -7,6 +7,7 @@ import { Scoreboard } from "./Scoreboard";
 import { TilesBoard } from "./TilesBoard";
 import "./style.scss";
 import { GameOver } from "./GameOver";
+import { Sidebar } from "./Sidebar";
 
 export interface SelectedTiles {
   tiles: GameTile[];
@@ -62,6 +63,7 @@ export const GameBoard: React.FC<BoardProps<GameState>> = ({
       }}
     >
       <div className="GameBoard">
+        <Sidebar />
         {!!ctx.gameover && <GameOver />}
         <Scoreboard />
         <TilesBoard />

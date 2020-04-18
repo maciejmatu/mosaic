@@ -37,24 +37,29 @@
   flex-direction: column;
   bottom: 0;
   left: 0;
-  transform: translate(calc(-100% - 24px), 0);
+  transform: translate(calc(-100% - #{em(24)}), 0);
+
+  &--clickable {
+    cursor: pointer;
+  }
+
+  &--clickable:hover &__item {
+    opacity: 0.8;
+  }
 
   &__item {
     position: relative;
-    margin-top: 8px;
+    margin-top: em(8);
   }
 
   &__penalty {
     position: absolute;
     top: 50%;
     left: 0;
-    transform: translate(calc(-100% - 8px), -50%);
+    transform: translate(calc(-100% - #{em(8)}), -50%);
     font-weight: 700;
-    font-size: 12px;
+    font-size: em(12);
     color: $c-dark-gray;
-  }
-
-  &__tile {
   }
 }
 
@@ -63,13 +68,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-bottom: 30px;
   flex-direction: column;
 }
 
 .TilesBoard {
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
+  grid-template-columns: repeat(7, 156px);
   grid-template-rows: 2;
   margin-bottom: 30px;
 
@@ -78,12 +82,12 @@
     grid-row: 1;
     display: flex;
     flex-wrap: wrap;
-    padding: 10px;
+    padding: 6px;
     justify-content: center;
     align-items: center;
 
     > * {
-      margin: 8px;
+      margin: 4px 8px;
     }
   }
 
@@ -145,16 +149,20 @@
 }
 
 .PlayerBoard {
-  padding: 20px;
-  border-radius: 10px;
+  font-size: 16px;
+  padding: em(20);
+  border-radius: em(10);
   background-color: #f7f8fb;
   display: inline-grid;
   grid-template-columns: 1fr 1fr;
-  grid-column-gap: 60px;
-  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
-  margin-left: 20px;
+  grid-column-gap: em(60);
+  box-shadow: 0px em(2) em(2) rgba(0, 0, 0, 0.25);
+  margin-left: em(20);
   position: relative;
-  box-shadow: 0 0 0 4px rgba($c-yellow, 0.5);
+
+  &--waiting {
+    box-shadow: 0 0 0 4px rgba($c-yellow, 0.5);
+  }
 
   &--active {
     box-shadow: 0 0 0 4px rgba($c-green, 0.7);
@@ -180,39 +188,45 @@
     color: $c-green;
   }
 
-  &__right {
-  }
-
   &__minus-points {
     margin-top: 10px;
     grid-column: span 2;
     display: flex;
     justify-content: center;
   }
+
+  &--minimal {
+    .MinusPoints__penalty {
+      display: none;
+    }
+  }
 }
 
 .SlotRow {
   display: flex;
-  margin: 10px 0;
+  margin: em(10) 0;
 
   &__tile {
     cursor: default;
-    margin-left: 10px;
+    margin-left: em(10);
   }
 }
 
 .TemporarySlot {
   display: flex;
   justify-content: flex-end;
-  margin: 10px 0;
-  cursor: pointer;
+  margin: em(10) 0;
 
-  &:hover &__tile {
+  &--clickable {
+    cursor: pointer;
+  }
+
+  &--clickable:hover &__tile {
     opacity: 0.8;
   }
 
   &__tile {
-    margin-left: 10px;
+    margin-left: em(10);
   }
 }
 

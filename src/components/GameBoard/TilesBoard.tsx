@@ -29,6 +29,7 @@ export const TilesBoard = () => {
 
                 return (
                   <TileFull
+                    movable
                     type={tile.type}
                     onClick={() => {
                       setSelectedTiles({
@@ -66,6 +67,7 @@ export const TilesBoard = () => {
 
           return (
             <TileFull
+              movable
               type={tile.type}
               key={tile.id}
               isSelected={isSelected}

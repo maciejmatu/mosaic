@@ -49,7 +49,12 @@ export const TileEmptySlot: React.FC<Omit<Props, "type">> = ({
 };
 
 // actual tile
-export const TileFull: React.FC<Props> = ({ type, className, ...props }) => {
+export const TileFull: React.FC<Props & { movable?: boolean }> = ({
+  type,
+  className,
+  movable = false,
+  ...props
+}) => {
   const TileSvg = tileMap[type];
 
   return (
@@ -57,6 +62,7 @@ export const TileFull: React.FC<Props> = ({ type, className, ...props }) => {
       className={cn(
         "Tile--full",
         `Tile--${tileColorModifier[type]}`,
+        movable && "Tile--movable",
         className
       )}
       {...props}

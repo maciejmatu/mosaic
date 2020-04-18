@@ -1,33 +1,42 @@
 @import "~styles/shared";
 
 .Tile {
-  width: 36px;
-  height: 36px;
+  width: em(36);
+  height: em(36);
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 5px;
+  border-radius: em(5);
   flex-shrink: 0;
-
-  cursor: pointer;
 
   &--empty-slot {
     background: #f0f2f8;
-    box-shadow: inset 2px 2px 0px rgba(0, 0, 0, 0.15),
-      inset -2px -2px 0px rgba(255, 255, 255, 0.35);
+    box-shadow: inset em(2) em(2) 0px rgba(0, 0, 0, 0.15),
+      inset em(-2) em(-2) 0px rgba(255, 255, 255, 0.35);
+  }
+
+  &--movable {
+    cursor: pointer;
+
+    &:hover {
+      transform: scale(1.08);
+    }
   }
 
   &--slot {
-    opacity: 0.2;
-    box-shadow: inset 3px 3px 0px rgba(0, 0, 0, 0.15);
+    box-shadow: inset em(3) em(3) 0px rgba(0, 0, 0, 0.1);
+
+    > * {
+      opacity: 0.2;
+    }
   }
 
   &--full {
-    box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.15);
+    box-shadow: em(2) em(2) 0px rgba(0, 0, 0, 0.15);
   }
 
   &--selected {
-    box-shadow: 0 0 0 3px rgb(10, 73, 133);
+    box-shadow: 0 0 0 em(3) rgb(10, 73, 133);
   }
 
   > svg {

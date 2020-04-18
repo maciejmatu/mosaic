@@ -22,5 +22,6 @@
   "You are 3rd Better luck next time!": "Zająłeś 3-cie miejsce",
   "You are 4th Better luck next time!": "You are 4th Better luck next time!",
   "You Got 2nd place. Good Job!": "You Got 2nd place. Good Job!",
-  "<0>{currentPlayerInfo.name}</0> is making a move...": "<0>{currentPlayerInfo.name}</0> wykonuje ruch..."
+  "<0>{currentPlayerInfo.name}</0> is making a move...": "<0>{currentPlayerInfo.name}</0> wykonuje ruch...",
+  "{{score}} points": "{{score}} points"
 }

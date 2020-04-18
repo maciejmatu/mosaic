@@ -1,4 +1,5 @@
 {
+  "{{score}} pts": "{{score}} pts",
   "<0>{{currentPlayerName}}</0> is making a move...": "<0>{{currentPlayerName}}</0> is making a move...",
   "Back": "Back",
   "Change Nickname": "Change Nickname",
