@@ -66,13 +66,13 @@
   font-weight: 700;
 
   .scoreValue {
-    color: #3fe2c5;
+    color: $c-ocean-green;
   }
 }
 
 .playerScore {
   font-weight: 700;
-  color: #3fe2c5;
+  color: $c-ocean-green;
   right: 0;
   font-size: 16px;
   top: -6px;

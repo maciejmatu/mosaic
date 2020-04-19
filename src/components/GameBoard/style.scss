@@ -29,6 +29,25 @@
     margin: 5px 0;
     justify-content: space-between;
   }
+
+  &__player {
+    position: relative;
+    padding-left: 20px;
+
+    &--active {
+      color: $c-ocean-green;
+
+      &::before {
+        color: currentColor;
+        content: "➤";
+        font-size: 14px;
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translate(0, -50%);
+      }
+    }
+  }
 }
 
 .MinusPoints {
