@@ -26,5 +26,6 @@
   "You are 2nd. Good Job!": "You are 2nd. Good Job!",
   "You are 3rd. Better luck next time!": "You are 3rd. Better luck next time!",
   "You are 4th. Better luck next time!": "You are 4th. Better luck next time!",
+  "You have <1>{{userScore}}</1> pts": "You have <1>{{userScore}}</1> pts",
   "You Won!": "You Won!"
 }

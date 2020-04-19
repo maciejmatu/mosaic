@@ -22,7 +22,6 @@ export const Sidebar = () => {
       </div>
 
       {otherPlayers.map((player) => {
-        console.log(player);
         const playerBoard = State.players[String(player.id)];
         const playerID = String(player.id);
         const isCurrentPlayer = ctx.currentPlayer === playerID;

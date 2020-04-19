@@ -26,5 +26,6 @@
   "You are 2nd. Good Job!": "Drugie Miejsce. Dobra robota!",
   "You are 3rd. Better luck next time!": "Trzecie miejsce. Może następnym razem...",
   "You are 4th. Better luck next time!": "Czwarte miejsce. Może następnym razem...",
+  "You have <1>{{userScore}}</1> pts": "Masz <1>{{userScore}}</1> pkt",
   "You Won!": "Wygrana!"
 }

@@ -185,8 +185,6 @@ export const MosaicGame = {
 
   endIf: (G: GameState, ctx) => {
     if (G.shouldEndGame) {
-      console.log("END GAME");
-
       let winner = { score: 0, id: "" };
 
       each(G.scoreboard, (score, playerId) => {

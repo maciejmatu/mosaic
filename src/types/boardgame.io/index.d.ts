@@ -5,7 +5,7 @@ declare module "boardgame.io/react" {
     DefaultGameStatePlayerView,
     DefaultMoves,
     DefaultPlayerID,
-    DefaultPhaseID
+    DefaultPhaseID,
   } from "boardgame.io/core";
 
   export interface BoardProps<
@@ -21,6 +21,7 @@ declare module "boardgame.io/react" {
     playerID: PlayerID;
     gameMetadata: any;
     isActive: boolean;
+    log: any;
     isMultiplayer: boolean;
     isConnected: boolean;
     events: any;
