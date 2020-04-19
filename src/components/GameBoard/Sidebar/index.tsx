@@ -28,22 +28,20 @@ export const Sidebar = () => {
         const score = State.scoreboard[playerID];
 
         return (
-          <>
-            <PlayerBoardLayout
-              key={player.id}
-              className={classNames(
-                style.sidebarBoard,
-                isCurrentPlayer && style.activeBoard
-              )}
-              minimal
-              playerBoard={playerBoard}
-            >
-              <span className={style.playerName}>{player.name}</span>
-              <span className={style.playerScore}>
-                <Trans count={score}>{{ score }} pts</Trans>
-              </span>
-            </PlayerBoardLayout>
-          </>
+          <PlayerBoardLayout
+            key={player.id}
+            className={classNames(
+              style.sidebarBoard,
+              isCurrentPlayer && style.activeBoard
+            )}
+            minimal
+            playerBoard={playerBoard}
+          >
+            <span className={style.playerName}>{player.name}</span>
+            <span className={style.playerScore}>
+              <Trans count={score}>{{ score }} pts</Trans>
+            </span>
+          </PlayerBoardLayout>
         );
       })}
     </div>

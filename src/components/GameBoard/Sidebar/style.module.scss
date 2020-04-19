@@ -33,20 +33,20 @@
     background: $c-white;
   }
 
-  &Board {
-    font-size: 10px;
-    margin: 30px 4px;
-    margin-left: 50px;
-    flex-shrink: 0;
-
-    :global(.MinusPoints__tile) {
-      background: lighten($c-violet, 8%);
-    }
-  }
-
   &Logo {
     margin-bottom: 20px;
     flex-shrink: 0;
+  }
+}
+
+.sidebarBoard:global(.PlayerBoard) {
+  font-size: 10px;
+  margin: 30px 4px;
+  margin-left: 50px;
+  flex-shrink: 0;
+
+  :global(.MinusPoints__tile) {
+    background: lighten($c-violet, 8%);
   }
 }
 

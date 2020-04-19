@@ -15,6 +15,7 @@ import {
   PLAYER_STORAGE_KEY,
   StoreModel,
 } from "./store/store";
+import { Welcome } from "components/Welcome";
 
 const savedNickname = localStorage.getItem(NICKNAME_STORAGE_KEY);
 const savedPlayer = localStorage.getItem(PLAYER_STORAGE_KEY);
@@ -33,6 +34,10 @@ const App: React.FC = () => {
       <Switch>
         {/* TODO: Use modal for nickname creation instead of conditional rendering */}
         <Route exact path="/">
+          <Welcome />
+        </Route>
+
+        <Route exact path="/create">
           {nickname ? <CreateGame /> : <SetupNickname />}
         </Route>
 
@@ -41,7 +46,7 @@ const App: React.FC = () => {
         </Route>
 
         <Route path="/nickname">
-          <SetupNickname onSubmit={() => history.push("/")} />
+          <SetupNickname onSubmit={() => history.push("/create")} />
         </Route>
       </Switch>
     </div>
