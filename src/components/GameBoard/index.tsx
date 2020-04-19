@@ -1,13 +1,14 @@
 import { BoardProps } from "boardgame.io/react";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { GameState, GameTile, GameTileType } from "../../game";
 import { BoardContext } from "./BoardContext";
 import { PlayerBoard } from "./PlayerBoard";
 import { Scoreboard } from "./Scoreboard";
 import { TilesBoard } from "./TilesBoard";
-import "./style.scss";
+import { useTranslation } from "react-i18next";
 import { GameOver } from "./GameOver";
 import { Sidebar } from "./Sidebar";
+import "./style.scss";
 
 export interface SelectedTiles {
   tiles: GameTile[];
@@ -35,6 +36,7 @@ export const GameBoard: React.FC<BoardProps<GameState>> = ({
   const [selectedTiles, setSelectedTiles] = useState<SelectedTiles | undefined>(
     undefined
   );
+  const { t } = useTranslation();
 
   const pickTiles = (
     tileIds: GameTile[],
@@ -46,6 +48,24 @@ export const GameBoard: React.FC<BoardProps<GameState>> = ({
     moves.pickTiles(tileIds, tileGroupId, targetSlotId);
     setSelectedTiles(undefined);
   };
+
+  useEffect(() => {
+    if (!isActive) return;
+
+    const originalTitle = document.title;
+
+    const interval = setInterval(() => {
+      document.title =
+        document.title === originalTitle
+          ? `▼ ${t("Make a move")} ▼`
+          : originalTitle;
+    }, 1500);
+
+    return () => {
+      clearInterval(interval);
+      document.title = originalTitle;
+    };
+  }, [t, isActive]);
 
   return (
     <BoardContext.Provider
