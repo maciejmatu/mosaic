@@ -4,11 +4,11 @@ phases:
   pre_build:
     commands:
       - echo Installing source NPM dependencies...
-      - npm install
+      - yarn install
   build:
     commands:
       - echo Build started on `date`
-      - npm run build
+      - yarn build
   post_build:
     commands:
       - echo Build completed on `date`
@@ -19,4 +19,5 @@ artifacts:
     - server/**/*
     - src/**/*
     - package.json
+    - tsconfig.json
     - node_modules/**/*
