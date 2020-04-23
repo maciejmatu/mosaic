@@ -17,5 +17,6 @@ artifacts:
   files:
     - build/**/*
     - server/**/*
+    - src/**/*
     - package.json
     - node_modules/**/*
