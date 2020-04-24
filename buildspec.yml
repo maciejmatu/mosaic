@@ -15,9 +15,4 @@ phases:
 # Include only the files required for your application to run.
 artifacts:
   files:
-    - build/**/*
-    - server/**/*
-    - src/**/*
-    - package.json
-    - tsconfig.json
-    - node_modules/**/*
+    - "**/*"
