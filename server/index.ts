@@ -11,7 +11,10 @@ const PORT = process.env.PORT || DEFAULT_PORT;
 const server = Server({ games: [MosaicGame] });
 
 server.app.use(
-  historyApiFallback({ index: "index.html", whiteList: ["/api", "/games"] })
+  historyApiFallback({
+    index: "index.html",
+    whiteList: ["/api", "/games", "/.well-known"],
+  })
 );
 server.app.use(serve(root));
 

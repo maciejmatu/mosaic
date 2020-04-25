@@ -6,7 +6,7 @@
 
 It's an online multiplayer board game heavily inspired by [Azul](https://boardgamegeek.com/boardgame/230802/azul) created by Michael Kiesling. The gameplay rules and stages are the same with a small difference: counting points and mixing used tiles is done automatically.
 
-If you are new to Azul and Mosaic, you can find rules and playthrough on [youtube](https://www.youtube.com/watch?v=csJL-78NEPQ)
+If you are new to Azul and Mosaic, you can find rules and playthrough on [youtube](https://www.youtube.com/watch?v=csJL-78NEPQ) or read the [rulebook](https://www.ultraboardgames.com/azul/game-rules.php)
 
 ### How it started
 
