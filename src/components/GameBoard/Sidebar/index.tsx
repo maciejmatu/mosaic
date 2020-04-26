@@ -1,19 +1,43 @@
+import { ReactComponent as Lock } from "assets/svg/lock.svg";
+import { ReactComponent as Unlock } from "assets/svg/unlock.svg";
 import classNames from "classnames";
 import { Logo } from "components/Logo";
 import React from "react";
+import { Trans } from "react-i18next";
 import { useBoardContext } from "../BoardContext";
 import { PlayerBoardLayout } from "../PlayerBoard";
 import style from "./style.module.scss";
-import { Trans } from "react-i18next";
 
 export const Sidebar = () => {
-  const { State, playerID, playersInfo, ctx } = useBoardContext();
+  const {
+    State,
+    playerID,
+    playersInfo,
+    ctx,
+    isSidebarPinned,
+    setSidebarPinned,
+  } = useBoardContext();
   const otherPlayers = playersInfo.filter((p) => String(p.id) !== playerID);
   const userScore = State.scoreboard[playerID];
 
   return (
-    <div className={style.sidebar}>
+    <div
+      className={classNames(style.sidebar, {
+        [style.sidebarPinned]: isSidebarPinned,
+      })}
+    >
       <Logo size="small" className={style.sidebarLogo} />
+
+      <div
+        className={style.lockToggle}
+        onClick={() => setSidebarPinned(!isSidebarPinned)}
+      >
+        {isSidebarPinned ? (
+          <Lock className={style.sidebarLock} />
+        ) : (
+          <Unlock className={style.sidebarLock} />
+        )}
+      </div>
 
       <div className={style.userScore}>
         <Trans>

@@ -88,6 +88,10 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
+
+  &--pinned {
+    padding-left: 400px;
+  }
 }
 
 .TilesBoard {

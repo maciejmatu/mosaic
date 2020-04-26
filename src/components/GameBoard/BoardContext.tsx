@@ -17,6 +17,8 @@ interface IBoardContext {
   ): void;
   selectedTiles?: SelectedTiles;
   setSelectedTiles(tiles: SelectedTiles): void;
+  isSidebarPinned: boolean;
+  setSidebarPinned(value: boolean): void;
   playersInfo: { id: string; name: string }[];
 }
 

@@ -22,21 +22,51 @@
   }
 
   &::after {
-    content: "";
-    width: 2px;
-    height: 70px;
+    content: "show";
+    width: 70px;
+    border-top: 2px solid $c-white;
     display: block;
     position: absolute;
     top: 50%;
-    right: 24px;
-    transform: translate(0, -50%);
-    background: $c-white;
+    right: -24px;
+    font-size: 12px;
+    letter-spacing: 1px;
+    padding-top: 4px;
+    font-weight: 700;
+    text-align: center;
+    transform: rotate(-90deg) translate(0, -50%);
+    color: $c-white;
   }
 
   &Logo {
     margin-bottom: 20px;
     flex-shrink: 0;
   }
+}
+
+.sidebarPinned {
+  transform: translate(0, 0);
+  border-radius: 0;
+
+  &::after {
+    display: none;
+  }
+}
+
+.lockToggle {
+  cursor: pointer;
+  position: absolute;
+  right: 50px;
+  top: 20px;
+
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+.sidebarLock {
+  width: 30px;
+  color: $c-white;
 }
 
 .sidebarBoard:global(.PlayerBoard) {

@@ -9,6 +9,7 @@ import { useTranslation } from "react-i18next";
 import { GameOver } from "./GameOver";
 import { Sidebar } from "./Sidebar";
 import "./style.scss";
+import classNames from "classnames";
 
 export interface SelectedTiles {
   tiles: GameTile[];
@@ -36,6 +37,7 @@ export const GameBoard: React.FC<BoardProps<GameState>> = ({
   const [selectedTiles, setSelectedTiles] = useState<SelectedTiles | undefined>(
     undefined
   );
+  const [isSidebarPinned, setSidebarPinned] = useState(false);
   const { t } = useTranslation();
 
   const pickTiles = (
@@ -79,10 +81,17 @@ export const GameBoard: React.FC<BoardProps<GameState>> = ({
         pickTiles,
         selectedTiles,
         setSelectedTiles,
+        isSidebarPinned,
+        setSidebarPinned,
         playersInfo: gameMetadata,
       }}
     >
-      <div className="GameBoard">
+      <div
+        className={classNames(
+          "GameBoard",
+          isSidebarPinned && "GameBoard--pinned"
+        )}
+      >
         <Sidebar />
         {!!ctx.gameover && <GameOver />}
         <Scoreboard />
