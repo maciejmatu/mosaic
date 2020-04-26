@@ -3,7 +3,7 @@ import { ReactComponent as Unlock } from "assets/svg/unlock.svg";
 import classNames from "classnames";
 import { Logo } from "components/Logo";
 import React from "react";
-import { Trans } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 import { useBoardContext } from "../BoardContext";
 import { PlayerBoardLayout } from "../PlayerBoard";
 import style from "./style.module.scss";
@@ -17,11 +17,13 @@ export const Sidebar = () => {
     isSidebarPinned,
     setSidebarPinned,
   } = useBoardContext();
+  const { t } = useTranslation();
   const otherPlayers = playersInfo.filter((p) => String(p.id) !== playerID);
   const userScore = State.scoreboard[playerID];
 
   return (
     <div
+      data-show-text={t("show")}
       className={classNames(style.sidebar, {
         [style.sidebarPinned]: isSidebarPinned,
       })}

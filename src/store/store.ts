@@ -3,7 +3,7 @@ import { StoreInjections } from ".";
 import {
   RoomMetadata,
   JoinRoomParams,
-  ActiveRoomPlayer
+  ActiveRoomPlayer,
 } from "../services/lobby-service";
 
 export interface StoreModel {
@@ -66,9 +66,9 @@ export const store: StoreModel = {
     const { playerCredentials } = await injections.lobbyApi.joinRoom(payload);
     actions.setActiveRoomPlayer({
       credential: playerCredentials,
-      playerID: payload.playerID
+      playerID: payload.playerID,
     });
   }),
 
-  reset: action(() => initState)
+  reset: action(() => initState),
 };

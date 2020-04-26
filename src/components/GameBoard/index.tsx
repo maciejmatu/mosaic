@@ -25,6 +25,8 @@ export const tileColorModifier: { [key in GameTileType]: string } = {
   [GameTileType.BEGIN]: "type-begin",
 };
 
+const SIDEBAR_CONFIG_KEY = "sidebar_config";
+
 export const GameBoard: React.FC<BoardProps<GameState>> = ({
   G: State,
   moves,
@@ -34,11 +36,14 @@ export const GameBoard: React.FC<BoardProps<GameState>> = ({
   undo,
   gameMetadata,
 }) => {
+  const { t } = useTranslation();
   const [selectedTiles, setSelectedTiles] = useState<SelectedTiles | undefined>(
     undefined
   );
-  const [isSidebarPinned, setSidebarPinned] = useState(false);
-  const { t } = useTranslation();
+  const [isSidebarPinned, setSidebarPinned] = useState(
+    JSON.parse(localStorage.getItem(SIDEBAR_CONFIG_KEY) || '{ "pinned": true }')
+      .pinned
+  );
 
   const pickTiles = (
     tileIds: GameTile[],
@@ -82,7 +87,13 @@ export const GameBoard: React.FC<BoardProps<GameState>> = ({
         selectedTiles,
         setSelectedTiles,
         isSidebarPinned,
-        setSidebarPinned,
+        setSidebarPinned: (value) => {
+          setSidebarPinned(value);
+          localStorage.setItem(
+            SIDEBAR_CONFIG_KEY,
+            JSON.stringify({ pinned: value })
+          );
+        },
         playersInfo: gameMetadata,
       }}
     >

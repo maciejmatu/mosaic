@@ -22,7 +22,7 @@
   }
 
   &::after {
-    content: "show";
+    content: attr(data-show-text);
     width: 70px;
     border-top: 2px solid $c-white;
     display: block;
@@ -56,8 +56,9 @@
 .lockToggle {
   cursor: pointer;
   position: absolute;
-  right: 50px;
-  top: 20px;
+  right: 40px;
+  padding: 10px;
+  top: 10px;
 
   &:hover {
     opacity: 0.7;
