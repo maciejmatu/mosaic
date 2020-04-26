@@ -50,7 +50,7 @@ export const GameOver = () => {
           })}
         </div>
 
-        <ButtonLink to="/">
+        <ButtonLink to="/create">
           <Trans>Create new game</Trans>
         </ButtonLink>
       </div>

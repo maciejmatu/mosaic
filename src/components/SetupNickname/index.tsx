@@ -25,7 +25,7 @@ export const SetupNickname: React.FC<{ onSubmit?: () => void }> = ({
 
   return (
     <LobbyPage>
-      <ButtonBack to="/" />
+      <ButtonBack to="/create" />
       <ButtonLang />
       <SmallLogo />
 
