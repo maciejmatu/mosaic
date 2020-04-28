@@ -31,11 +31,13 @@ export const PlayerBoardLayout: React.FC<{
   onMinusPointsClick?(): void;
   onSlotClick?(slotIndex: number): void;
   minimal?: boolean;
+  highlitedRowsIndeces?: (number | "minus-points")[];
 }> = ({
   playerBoard,
   className,
   onMinusPointsClick,
   onSlotClick,
+  highlitedRowsIndeces,
   children,
   minimal = false,
 }) => {
@@ -50,11 +52,12 @@ export const PlayerBoardLayout: React.FC<{
       {children}
 
       <div
-        className={classNames(
-          "PlayerBoard__minus-points",
-          "MinusPoints",
-          onMinusPointsClick && "MinusPoints--clickable"
-        )}
+        className={classNames("PlayerBoard__minus-points", "MinusPoints", {
+          "MinusPoints--clickable": onMinusPointsClick,
+          "MinusPoints--highlited": highlitedRowsIndeces?.includes(
+            "minus-points"
+          ),
+        })}
         onClick={onMinusPointsClick}
       >
         {times(7, (index) => {
@@ -95,10 +98,12 @@ export const PlayerBoardLayout: React.FC<{
         {playerBoard.leftSlots.map((slot, slotIndex) => {
           return (
             <div
-              className={classNames(
-                "TemporarySlot",
-                onSlotClick && "TemporarySlot--clickable"
-              )}
+              className={classNames("TemporarySlot", {
+                "TemporarySlot--clickable": onSlotClick,
+                "TemporarySlot--highlighted": highlitedRowsIndeces?.includes(
+                  slotIndex
+                ),
+              })}
               key={slotIndex}
               onClick={() => onSlotClick && onSlotClick(slotIndex)}
             >
@@ -166,12 +171,39 @@ export const PlayerBoard = () => {
     (p) => String(p.id) === ctx.currentPlayer
   )!.name;
 
+  const highlitedRowsIndeces: (number | "minus-points")[] = [];
+
+  if (isActive && selectedTiles) {
+    highlitedRowsIndeces.push("minus-points");
+  }
+
+  playerBoard.leftSlots.forEach((row, index) => {
+    if (!selectedTiles || !isActive) return;
+
+    // TODO: some of those checks are duplicated in `game` logic,
+    // they can be extracted to helper functions or enclosed in
+    // an object method (depending on the fp/oop approach)
+    const hasEmptySlots =
+      row.length !== row.reduce((count, tile) => count + (tile ? 1 : 0), 0);
+    const canPlaceColorRight = !playerBoard.rightSlots[index].find(
+      (slot) => slot.type === selectedTiles.tiles[0].type
+    )?.tile;
+    const canPlaceColorLeft = row[0]
+      ? row[0].type === selectedTiles.tiles[0].type
+      : true;
+
+    if (hasEmptySlots && canPlaceColorLeft && canPlaceColorRight) {
+      highlitedRowsIndeces.push(index);
+    }
+  });
+
   return (
     <div>
       <PlayerControls />
       <PlayerBoardLayout
         className={isActive ? "PlayerBoard--active" : "PlayerBoard--waiting"}
         playerBoard={playerBoard}
+        highlitedRowsIndeces={highlitedRowsIndeces}
         onMinusPointsClick={() => {
           if (selectedTiles) {
             pickTiles(

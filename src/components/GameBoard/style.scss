@@ -58,6 +58,10 @@
   left: 0;
   transform: translate(calc(-100% - #{em(24)}), 0);
 
+  &--highlited &__item .Tile {
+    background: rgba($c-pink, 0.3);
+  }
+
   &--clickable {
     cursor: pointer;
   }
@@ -250,6 +254,10 @@
 
   &__tile {
     margin-left: em(10);
+  }
+
+  &--highlighted &__tile.Tile--empty-slot {
+    background: rgba($c-green, 0.3);
   }
 }
 
