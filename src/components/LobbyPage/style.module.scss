@@ -17,3 +17,15 @@
   top: 40px;
   left: 60px;
 }
+
+.githubLink {
+  color: $c-white;
+  position: absolute;
+  bottom: 40px;
+  left: 60px;
+  width: 24px;
+
+  &:hover {
+    opacity: 0.7;
+  }
+}
