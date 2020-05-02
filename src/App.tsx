@@ -16,6 +16,7 @@ import {
   StoreModel,
 } from "./store/store";
 import { Welcome } from "components/Welcome";
+import { MobileCover } from "components/MobileCover";
 
 const savedNickname = localStorage.getItem(NICKNAME_STORAGE_KEY);
 const savedPlayer = localStorage.getItem(PLAYER_STORAGE_KEY);
@@ -39,14 +40,17 @@ const App: React.FC = () => {
 
         <Route exact path="/create">
           {nickname ? <CreateGame /> : <SetupNickname />}
+          <MobileCover />
         </Route>
 
         <Route path="/rooms/:id">
           {nickname ? <GameLobby /> : <SetupNickname />}
+          <MobileCover />
         </Route>
 
         <Route path="/nickname">
           <SetupNickname onSubmit={() => history.push("/create")} />
+          <MobileCover />
         </Route>
       </Switch>
     </div>

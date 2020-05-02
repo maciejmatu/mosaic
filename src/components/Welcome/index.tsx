@@ -8,7 +8,7 @@ import style from "./style.module.scss";
 export const Welcome = () => {
   return (
     <LobbyPage>
-      <Logo size="large" />
+      <Logo className={style.logo} size="large" />
       <p className={style.text}>
         <Trans>
           Online multiplayer boardgame to play with all (2-4) of your friends!
