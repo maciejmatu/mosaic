@@ -6,7 +6,7 @@ import { DEFAULT_PORT } from "../src/config";
 import { MosaicGame } from "../src/game";
 
 const root = path.join(__dirname, "../build");
-const PORT = process.env.PORT || DEFAULT_PORT;
+const PORT = Number(process.env.PORT || DEFAULT_PORT);
 
 const server = Server({ games: [MosaicGame] });
 

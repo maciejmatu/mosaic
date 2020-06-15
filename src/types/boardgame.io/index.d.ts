@@ -40,7 +40,9 @@ declare module "boardgame.io/react" {
     board?: ComponentType<
       BoardProps<GameStatePlayerView, Moves, PlayerID, PhaseID>
     >;
-    multiplayer?: false | (() => void);
+    multiplayer?:
+      | false
+      | ((transportOpts: SocketIOTransportOpts) => SocketIOTransport);
     debug?: boolean;
     [key: string]: any;
   }
