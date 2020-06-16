@@ -7,7 +7,7 @@ import {
   useHistory,
 } from "react-router-dom";
 import { CreateGame } from "./components/CreateGame";
-import { GameLobby } from "./components/Lobby";
+import { GameLobby, GameLobbySpectator } from "./components/Lobby";
 import { SetupNickname } from "./components/SetupNickname";
 import { initializeStore, useStoreState } from "./store";
 import {
@@ -43,8 +43,13 @@ const App: React.FC = () => {
           <MobileCover />
         </Route>
 
-        <Route path="/rooms/:id">
+        <Route exact path="/rooms/:id">
           {nickname ? <GameLobby /> : <SetupNickname />}
+          <MobileCover />
+        </Route>
+
+        <Route path="/rooms/:id/watch/:watchId">
+          <GameLobbySpectator />
           <MobileCover />
         </Route>
 

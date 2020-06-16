@@ -10,6 +10,7 @@ import { GameOver } from "./GameOver";
 import { Sidebar } from "./Sidebar";
 import "./style.scss";
 import classNames from "classnames";
+import { useParams } from "react-router-dom";
 
 export interface SelectedTiles {
   tiles: GameTile[];
@@ -36,6 +37,7 @@ export const GameBoard: React.FC<BoardProps<GameState>> = ({
   undo,
   gameMetadata,
 }) => {
+  const { watchId } = useParams();
   const { t } = useTranslation();
   const [selectedTiles, setSelectedTiles] = useState<SelectedTiles | undefined>(
     undefined
@@ -77,7 +79,7 @@ export const GameBoard: React.FC<BoardProps<GameState>> = ({
   return (
     <BoardContext.Provider
       value={{
-        playerID,
+        playerID: playerID || watchId,
         moves,
         State,
         isActive,

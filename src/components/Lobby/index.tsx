@@ -165,3 +165,9 @@ export const GameLobbyPlay = () => {
     />
   );
 };
+
+export const GameLobbySpectator = () => {
+  const { id } = useParams();
+
+  return <GameClient gameID={id} />;
+};
