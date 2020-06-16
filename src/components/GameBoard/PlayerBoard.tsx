@@ -1,5 +1,5 @@
 import times from "lodash/times";
-import React from "react";
+import React, { useState } from "react";
 import { GameTileType, Player } from "../../game";
 import { useBoardContext } from "./BoardContext";
 import cn from "classnames";
@@ -7,6 +7,7 @@ import { TileEmptySlot, TileFull, TileTypeSlot } from "./Tile";
 import { Trans } from "react-i18next";
 import { PlayerControls } from "./PlayerControls";
 import classNames from "classnames";
+import { Rulebook } from "./Rulebook";
 
 function getMinusPointsForIndex(value: number): number | null {
   switch (value) {
@@ -164,6 +165,7 @@ export const PlayerBoard = () => {
     isActive,
     ctx,
   } = useBoardContext();
+  const [showRulebook, setShowRulebook] = useState(false);
 
   const playerBoard = State.players[playerID];
 
@@ -200,6 +202,8 @@ export const PlayerBoard = () => {
   return (
     <div>
       <PlayerControls />
+      {showRulebook && <Rulebook onClose={() => setShowRulebook(false)} />}
+
       <PlayerBoardLayout
         className={isActive ? "PlayerBoard--active" : "PlayerBoard--waiting"}
         playerBoard={playerBoard}
@@ -219,6 +223,12 @@ export const PlayerBoard = () => {
           }
         }}
       >
+        <div
+          className="PlayerBoard__rulebook"
+          onClick={() => setShowRulebook(true)}
+        >
+          <Trans>Rulebook</Trans>
+        </div>
         <span className="PlayerBoard__hint">
           {isActive ? (
             ctx.numMoves > 0 ? (
