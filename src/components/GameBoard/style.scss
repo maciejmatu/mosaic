@@ -195,6 +195,27 @@
     box-shadow: 0 0 0 4px rgba($c-green, 0.7);
   }
 
+  &__rulebook {
+    position: absolute;
+    top: 50%;
+    right: -20px;
+    transform-origin: top right;
+    transform: rotate(90deg) translate(50%, -100%);
+    background: rgba($c-pink, 0.8);
+    color: $c-white;
+    font-weight: 500;
+    font-size: 14px;
+    cursor: pointer;
+    letter-spacing: 1px;
+    padding: 10px 20px;
+    text-transform: uppercase;
+    border-radius: 6px;
+
+    &:hover {
+      background: rgba($c-pink, 1);
+    }
+  }
+
   &__hint {
     max-width: 50%;
     font-size: 12px;
