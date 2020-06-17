@@ -61,10 +61,22 @@ export const GameBoard: React.FC<BoardProps<GameState>> = ({
   const alert = new Audio(
     "https://freesound.org/data/previews/260/260614_4486188-lq.mp3"
   );
+
+  const [alertPlayed, setAlertPlayed] = useState(false);
   useEffect(() => {
-    if (!isActive) return;
-    alert.play();
-  }, [alert, isActive]);
+    if (isActive) {
+      // Playing alert if not already played
+      if (!alertPlayed) {
+        alert.play();
+        setAlertPlayed(true);
+      }
+    } else {
+      // Reset alertPlayed to false
+      if (alertPlayed) {
+        setAlertPlayed(false);
+      }
+    }
+  }, [alert, alertPlayed, isActive]);
 
   useEffect(() => {
     if (!isActive) return;
