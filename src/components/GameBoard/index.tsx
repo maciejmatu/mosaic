@@ -56,6 +56,14 @@ export const GameBoard: React.FC<BoardProps<GameState>> = ({
     setSelectedTiles(undefined);
   };
 
+  const alert = new Audio(
+    "https://freesound.org/data/previews/260/260614_4486188-lq.mp3"
+  );
+  useEffect(() => {
+    if (!isActive) return;
+    alert.play();
+  }, [alert, isActive]);
+
   useEffect(() => {
     if (!isActive) return;
 
