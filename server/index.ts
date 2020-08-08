@@ -8,7 +8,7 @@ import * as Sentry from "@sentry/node";
 
 Sentry.init({
   dsn:
-    "https://6be923cf35d44170bd0fd8e9804c1ba9@o104850.ingest.sentry.io/5383259",
+    "https://ae87b4488f294c0fa382a15b06da8864@o431642.ingest.sentry.io/5383278",
 });
 
 const root = path.join(__dirname, "../build");
