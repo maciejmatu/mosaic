@@ -1,6 +1,6 @@
 import { ButtonLink } from "components/Button";
 import sortBy from "lodash/sortBy";
-import React from "react";
+import React, { useEffect } from "react";
 import { Trans } from "react-i18next";
 import { useBoardContext } from "./BoardContext";
 
