@@ -15,6 +15,12 @@ export const GameOver = () => {
     "score"
   ).reverse();
 
+  useEffect(() => {
+    gtag("event", "game-over", {
+      playersOrder: sortedWinners.map((p) => p.name).join(", "),
+    });
+  }, [sortedWinners]);
+
   const placeMessages = {
     0: <Trans>You Won!</Trans>,
     1: <Trans>You are 2nd. Good Job!</Trans>,

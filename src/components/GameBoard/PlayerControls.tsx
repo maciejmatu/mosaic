@@ -13,14 +13,20 @@ export const PlayerControls = () => {
         size="small"
         className="PlayerControls__button"
         disabled={!ctx.numMoves || !isActive}
-        onClick={() => undo()}
+        onClick={() => {
+          gtag("event", "undo");
+          undo();
+        }}
       >
         <Trans>Undo</Trans>
       </Button>
 
       <Button
         theme="green"
-        onClick={() => moves.endTurn()}
+        onClick={() => {
+          gtag("event", "end-turn");
+          moves.endTurn();
+        }}
         className="PlayerControls__button"
         size="small"
         disabled={!ctx.numMoves || !isActive}

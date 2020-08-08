@@ -44,6 +44,7 @@ export const store: StoreModel = {
     state.roomID = payload;
   }),
   createGameRoom: thunk(async (actions, payload, { injections }) => {
+    gtag("event", "create-game-room", { playerCount: payload });
     const roomID = await injections.lobbyApi.createRoom(payload);
     actions.setRoomID(roomID);
   }),
