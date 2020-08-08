@@ -82,7 +82,7 @@ function getTileGroups(
 ) {
   const tileGroups = times<GameTile[]>(groupCount, () => []);
   const idsToRemove: string[] = [];
-  let updatedTiles = tiles;
+  let updatedTiles = [...tiles];
   let clearUsedTiles = false;
 
   for (let i = 0; i < groupCount * 4; i++) {
