@@ -69,3 +69,5 @@ declare module "boardgame.io/react" {
     gameComponents: { game: any; board: any }[];
   }>;
 }
+
+declare function gtag(...attrs: any[]): any;
