@@ -28,7 +28,7 @@
     "koa-static": "^5.0.0",
     "koa2-connect-history-api-fallback": "^0.1.2",
     "ky": "^0.20.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "node-sass": "^4.14.1",
     "normalize.css": "^8.0.1",
     "react": "^16.13.1",
