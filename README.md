@@ -1,3 +1,5 @@
+#### The project is not being actively maintained
+
 # Mosaic Game
 
 ![Header](https://github.com/maciejmatu/mosaic/blob/master/public/header.png)
