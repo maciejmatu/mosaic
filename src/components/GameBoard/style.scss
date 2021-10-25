@@ -3,36 +3,36 @@
 .PlayerControls {
   display: flex;
   justify-content: flex-end;
-  margin-bottom: 12px;
+  margin-bottom: .75em;
 
   &__button {
-    margin-left: 20px;
+    margin-left: 1.25em;
   }
 }
 
 .Scoreboard {
-  padding: 20px;
-  border-radius: 10px 0 0 0;
+  padding: 1.25em;
+  border-radius: .625em 0 0 0;
   background-color: $c-violet;
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 0px .3125em rgba(0, 0, 0, 0.25);
   position: absolute;
   bottom: 0;
   right: 0;
-  font-size: 18px;
+  font-size: 1.125em;
   color: $c-white;
   font-weight: 500;
   line-height: 1.4;
 
   &__row {
-    min-width: 100px;
+    min-width: 6.25em;
     display: flex;
-    margin: 5px 0;
+    margin: .3125em 0;
     justify-content: space-between;
   }
 
   &__player {
     position: relative;
-    padding-left: 20px;
+    padding-left: 1.25em;
 
     &--active {
       color: $c-ocean-green;
@@ -40,7 +40,7 @@
       &::before {
         color: currentColor;
         content: "➤";
-        font-size: 14px;
+        font-size: .875em;
         position: absolute;
         left: 0;
         top: 50%;
@@ -100,21 +100,21 @@
 
 .TilesBoard {
   display: grid;
-  grid-template-columns: repeat(7, 156px);
+  grid-template-columns: repeat(7, 9.75em);
   grid-template-rows: 2;
-  margin-bottom: 30px;
+  margin-bottom: 1.875em;
 
   &__middle {
     grid-column: 3 / span 3;
     grid-row: 1;
     display: flex;
     flex-wrap: wrap;
-    padding: 6px;
+    padding: .375em;
     justify-content: center;
     align-items: center;
 
     > * {
-      margin: 4px 8px;
+      margin: .25em .5em;
     }
   }
 
@@ -165,18 +165,18 @@
 }
 
 .TilesContainer {
-  margin: 10px;
+  margin: .625em;
   background: #f7f8fb;
-  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px .125em .125em rgba(0, 0, 0, 0.25);
   border-radius: 50%;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-gap: 8px;
-  padding: 28px;
+  grid-gap: .5em;
+  padding: 1.75em;
 }
 
 .PlayerBoard {
-  font-size: 16px;
+  font-size: 1em;
   padding: em(20);
   border-radius: em(10);
   background-color: #f7f8fb;
@@ -188,28 +188,28 @@
   position: relative;
 
   &--waiting {
-    box-shadow: 0 0 0 4px rgba($c-yellow, 0.5);
+    box-shadow: 0 0 0 .25em rgba($c-yellow, 0.5);
   }
 
   &--active {
-    box-shadow: 0 0 0 4px rgba($c-green, 0.7);
+    box-shadow: 0 0 0 .25em rgba($c-green, 0.7);
   }
 
   &__rulebook {
     position: absolute;
     top: 50%;
-    right: -20px;
+    right: -1.25em;
     transform-origin: top right;
     transform: rotate(90deg) translate(50%, -100%);
     background: rgba($c-pink, 0.8);
     color: $c-white;
     font-weight: 500;
-    font-size: 14px;
+    font-size: .875em;
     cursor: pointer;
     letter-spacing: 1px;
-    padding: 10px 20px;
+    padding: .625em 1.25em;
     text-transform: uppercase;
-    border-radius: 6px;
+    border-radius: .375em;
 
     &:hover {
       background: rgba($c-pink, 1);
@@ -218,13 +218,13 @@
 
   &__hint {
     max-width: 50%;
-    font-size: 12px;
+    font-size: .75em;
     text-transform: uppercase;
     font-weight: 800;
     position: absolute;
     top: 0;
     left: 0;
-    transform: translate(0, calc(-100% - 10px));
+    transform: translate(0, calc(-100% - .625em));
     color: darken($c-yellow, 5%);
   }
 
@@ -237,7 +237,7 @@
   }
 
   &__minus-points {
-    margin-top: 10px;
+    margin-top: .625em;
     grid-column: span 2;
     display: flex;
     justify-content: center;
@@ -297,49 +297,49 @@
     left: 50%;
     transform: translate(-50%, -50%);
     background: $c-violet;
-    padding: 42px 56px;
-    border-radius: 10px;
-    box-shadow: 0 0 20px 0px darken($c-violet, 20%);
+    padding: 2.625em 3.5em;
+    border-radius: .625em;
+    box-shadow: 0 0 1.25em 0px darken($c-violet, 20%);
     color: $c-white;
   }
 
   &__title {
     text-align: center;
-    letter-spacing: 2px;
+    letter-spacing: .125em;
     margin-top: 0;
-    font-size: 36px;
+    font-size: 2.25em;
     font-weight: 700;
   }
 
   &__subtitle {
     text-align: center;
     margin-top: 0;
-    margin-bottom: 32px;
-    font-size: 18px;
+    margin-bottom: 2em;
+    font-size: 1.125em;
     font-weight: 700;
   }
 
   &__ranking {
-    margin-bottom: 40px;
+    margin-bottom: 2.5em;
     font-weight: 500;
   }
 
   &__ranking-result {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 24px;
+    margin-bottom: 1.5em;
 
     &:nth-child(1) {
-      font-size: 32px;
+      font-size: 2em;
     }
 
     &:nth-child(2) {
-      font-size: 22px;
+      font-size: 1.375em;
       opacity: 0.6;
     }
 
     &:nth-child(n + 3) {
-      font-size: 14px;
+      font-size: .875em;
       opacity: 0.5;
     }
   }

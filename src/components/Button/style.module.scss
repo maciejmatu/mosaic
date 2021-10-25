@@ -10,16 +10,16 @@
 }
 
 .button {
-  border-radius: 10px;
+  border-radius: 0.6em;
   display: flex;
   text-decoration: none;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   border: none;
-  padding: 12px 42px;
+  padding: 0.75em 1.5em;
   text-align: center;
-  font-size: 20px;
+  font-size: 1.25em;
   font-weight: 600;
   color: $c-white;
   cursor: pointer;
@@ -41,12 +41,12 @@
   }
 
   &--size-small {
-    padding: 12px 24px;
-    font-size: 16px;
+    padding: .75em 1.5em;
+    font-size: 1em;
   }
 
   &:not([disabled]):hover {
-    transform: translate(2px, 2px);
+    transform: translate(.125em, .125em);
   }
 
   &[disabled] {

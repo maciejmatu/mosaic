@@ -16,11 +16,11 @@
   left: 50%;
   transform: translate(-50%, -50%);
   background: $c-gray;
-  padding: 32px;
+  padding: 2em;
   width: 90vw;
   height: 90vh;
   border-radius: 10px;
-  box-shadow: 0 0 20px 0px darken($c-gray, 20%);
+  box-shadow: 0 0 1.25em 0px darken($c-gray, 20%);
   color: $c-white;
 }
 
@@ -32,8 +32,8 @@
 
 .close {
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: 1.25em;
+  right: 1.25em;
 }
 
 .ruleImg {

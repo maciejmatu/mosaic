@@ -7,15 +7,15 @@
   z-index: 1;
   width: auto;
   height: 100%;
-  padding: 24px 50px 24px 16px;
+  padding: 1.5em 3.125em 1.5em 1em;
   display: flex;
   align-items: center;
   overflow: auto;
   flex-direction: column;
-  box-shadow: 4px 0px 0px rgba(0, 0, 0, 0.14);
-  transform: translate(calc(-100% + 50px), 0);
+  box-shadow: .25em 0px 0px rgba(0, 0, 0, 0.14);
+  transform: translate(calc(-100% + 3.125em), 0);
   transition: transform 0.2s ease;
-  border-radius: 0 20px 20px 0;
+  border-radius: 0 1.25em 1.25em 0;
 
   &:hover {
     transform: translate(0, 0);
@@ -23,15 +23,15 @@
 
   &::after {
     content: attr(data-show-text);
-    width: 70px;
-    border-top: 2px solid $c-white;
+    width: 4.375em;
+    border-top: .125em solid $c-white;
     display: block;
     position: absolute;
     top: 50%;
-    right: -24px;
-    font-size: 12px;
+    right: -1.5em;
+    font-size: .75em;
     letter-spacing: 1px;
-    padding-top: 4px;
+    padding-top: .25em;
     font-weight: 700;
     text-align: center;
     transform: rotate(-90deg) translate(0, -50%);
@@ -39,7 +39,7 @@
   }
 
   &Logo {
-    margin-bottom: 20px;
+    margin-bottom: 1.25em;
     flex-shrink: 0;
   }
 }
@@ -56,9 +56,9 @@
 .lockToggle {
   cursor: pointer;
   position: absolute;
-  right: 40px;
-  padding: 10px;
-  top: 10px;
+  right: 2.5em;
+  padding: .625em;
+  top: .625em;
 
   &:hover {
     opacity: 0.7;
@@ -66,14 +66,14 @@
 }
 
 .sidebarLock {
-  width: 30px;
+  width: 1.875em;
   color: $c-white;
 }
 
 .sidebarBoard:global(.PlayerBoard) {
-  font-size: 10px;
-  margin: 30px 4px;
-  margin-left: 50px;
+  font-size: .625em;
+  margin: 1.875em .25em;
+  margin-left: 3.125em;
   flex-shrink: 0;
 
   :global(.MinusPoints__tile) {
@@ -84,15 +84,15 @@
 .playerName {
   font-weight: 700;
   color: $c-white;
-  font-size: 16px;
-  top: -6px;
+  font-size: 1em;
+  top: -.375em;
   transform: translate(0, -100%);
   position: absolute;
 }
 
 .userScore {
-  margin: 10px 0 16px;
-  font-size: 24px;
+  margin: .625em 0 1em;
+  font-size: 1.5em;
   color: $c-white;
   font-weight: 700;
 
@@ -105,14 +105,14 @@
   font-weight: 700;
   color: $c-ocean-green;
   right: 0;
-  font-size: 16px;
-  top: -6px;
+  font-size: 1em;
+  top: -.375em;
   transform: translate(0, -100%);
   position: absolute;
 }
 
 .activeBoard {
-  box-shadow: 0 0 0 3px lighten($c-green, 5%);
+  box-shadow: 0 0 0 .1875em lighten($c-green, 5%);
 
   .playerName {
     color: lighten($c-green, 10%);
