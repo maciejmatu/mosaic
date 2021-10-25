@@ -10,3 +10,19 @@ $c-violet: #b264d2;
 $c-pink: #ef69b1;
 $c-light-yellow: #ffc876;
 $c-ocean-blue: #5cdefb;
+
+$layout-breakpoints: (
+    extralargedesktop: 1920px,
+    largedesktop: 1280px,
+    desktop: 1020px,
+    tablet: 768px,
+    phone: 576px
+) !default;
+
+$layout-font-size: (
+    extralargedesktop: 16px,
+    largedesktop: 14px,
+    desktop: 12px,
+    tablet: 10px,
+    phone: 8px
+);

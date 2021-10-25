@@ -9,9 +9,14 @@
 
 body {
   margin: 0;
-  font-size: 16px; // default value
   font-family: "Rubik", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: $c-gray;
+
+  @each $size in map-keys($layout-breakpoints) {
+    @media only screen and (max-width: map-get($layout-breakpoints, $size)) {
+        font-size: map-get($layout-font-size, $size);
+    }
+  }
 }
