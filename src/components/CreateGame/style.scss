@@ -2,17 +2,17 @@
 
 .CreateGame {
   &__title {
-    font-size: 50px;
+    font-size: 3.125em;
     font-weight: 700;
     color: $c-white;
     margin: 0;
   }
 
   &__subtitle {
-    font-size: 32px;
+    font-size: 2em;
     color: $c-white;
     font-weight: 500;
-    margin: 20px 0 30px;
+    margin: 1.25em 0 1.875em;
   }
 
   &__options {
@@ -21,11 +21,11 @@
 }
 
 .CreateGameButton {
-  width: 120px;
-  height: 120px;
-  margin: 24px;
+  width: 7.5em;
+  height: 7.5em;
+  margin: 1.5em;
 
   &__count {
-    font-size: 32px;
+    font-size: 2em;
   }
 }

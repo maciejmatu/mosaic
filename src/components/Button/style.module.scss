@@ -41,12 +41,12 @@
   }
 
   &--size-small {
-    padding: 12px 24px;
+    padding: .75em 1.5em;
     font-size: 1em;
   }
 
   &:not([disabled]):hover {
-    transform: translate(2px, 2px);
+    transform: translate(.125em, .125em);
   }
 
   &[disabled] {

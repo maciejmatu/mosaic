@@ -3,12 +3,12 @@
 .SetupNickname {
   &__input {
     width: 80%;
-    margin: 36px 0;
+    margin: 2.25em 0;
   }
 
   &__form {
     width: 100%;
-    max-width: 600px;
+    max-width: 37.5em;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -16,7 +16,7 @@
   }
 
   &__title {
-    font-size: 50px;
+    font-size: 3.125em;
     color: $c-white;
     margin: 0;
   }
