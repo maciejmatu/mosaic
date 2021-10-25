@@ -29,7 +29,7 @@
     position: absolute;
     top: 50%;
     right: -24px;
-    font-size: 12px;
+    font-size: .75em;
     letter-spacing: 1px;
     padding-top: 4px;
     font-weight: 700;
@@ -71,7 +71,7 @@
 }
 
 .sidebarBoard:global(.PlayerBoard) {
-  font-size: 10px;
+  font-size: .625em;
   margin: 30px 4px;
   margin-left: 50px;
   flex-shrink: 0;
@@ -84,7 +84,7 @@
 .playerName {
   font-weight: 700;
   color: $c-white;
-  font-size: 16px;
+  font-size: 1em;
   top: -6px;
   transform: translate(0, -100%);
   position: absolute;
@@ -92,7 +92,7 @@
 
 .userScore {
   margin: 10px 0 16px;
-  font-size: 24px;
+  font-size: 1.5em;
   color: $c-white;
   font-weight: 700;
 
@@ -105,7 +105,7 @@
   font-weight: 700;
   color: $c-ocean-green;
   right: 0;
-  font-size: 16px;
+  font-size: 1em;
   top: -6px;
   transform: translate(0, -100%);
   position: absolute;

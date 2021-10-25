@@ -18,7 +18,7 @@
   position: absolute;
   bottom: 0;
   right: 0;
-  font-size: 18px;
+  font-size: 1.125em;
   color: $c-white;
   font-weight: 500;
   line-height: 1.4;
@@ -40,7 +40,7 @@
       &::before {
         color: currentColor;
         content: "➤";
-        font-size: 14px;
+        font-size: .875em;
         position: absolute;
         left: 0;
         top: 50%;
@@ -176,7 +176,7 @@
 }
 
 .PlayerBoard {
-  font-size: 16px;
+  font-size: 1em;
   padding: em(20);
   border-radius: em(10);
   background-color: #f7f8fb;
@@ -204,7 +204,7 @@
     background: rgba($c-pink, 0.8);
     color: $c-white;
     font-weight: 500;
-    font-size: 14px;
+    font-size: .875em;
     cursor: pointer;
     letter-spacing: 1px;
     padding: 10px 20px;
@@ -218,7 +218,7 @@
 
   &__hint {
     max-width: 50%;
-    font-size: 12px;
+    font-size: .75em;
     text-transform: uppercase;
     font-weight: 800;
     position: absolute;
@@ -315,7 +315,7 @@
     text-align: center;
     margin-top: 0;
     margin-bottom: 32px;
-    font-size: 18px;
+    font-size: 1.125em;
     font-weight: 700;
   }
 
@@ -334,12 +334,12 @@
     }
 
     &:nth-child(2) {
-      font-size: 22px;
+      font-size: 1.375em;
       opacity: 0.6;
     }
 
     &:nth-child(n + 3) {
-      font-size: 14px;
+      font-size: .875em;
       opacity: 0.5;
     }
   }
