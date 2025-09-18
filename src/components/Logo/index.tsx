@@ -1,6 +1,4 @@
-import React from "react";
-import { ReactComponent as LogoSvg } from "assets/svg/logo.svg";
-import "./style.scss";
+import LogoSvg from "assets/svg/logo.svg?react";
 import classNames from "classnames";
 
 interface Props {
@@ -9,9 +7,17 @@ interface Props {
 }
 
 export const Logo: React.FC<Props> = ({ size, className, ...props }) => {
+  const sizeClass =
+    size === "large"
+      ? "w-[37.5em]"
+      : size === "medium"
+      ? "w-[20em]"
+      : size === "small"
+      ? "w-[8.4375em]"
+      : "w-[6.25em]";
   return (
     <LogoSvg
-      className={classNames("Logo", `Logo--${size}`, className)}
+      className={classNames("text-pink", sizeClass, className)}
       {...props}
     />
   );

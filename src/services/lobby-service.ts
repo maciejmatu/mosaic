@@ -9,6 +9,16 @@ export interface Player {
 
 export interface RoomMetadata {
   players: Player[];
+  setupData?: { roomName?: string };
+}
+
+export interface RoomSummary {
+  matchID: string;
+  players: Player[];
+  setupData?: { roomName?: string };
+  gameover?: any;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface ActiveRoomPlayer {
@@ -29,12 +39,14 @@ export class LobbyService {
     this.api = ky.create({ prefixUrl: `${SERVER_URL}/games/${GAME_ID}` });
   }
 
-  async createRoom(numPlayers: number): Promise<string> {
+  async createRoom(numPlayers: number, roomName?: string): Promise<string> {
     const data = await this.api
-      .post("create", { json: { numPlayers } })
-      .json<{ gameID: string }>();
+      .post("create", {
+        json: { numPlayers, setupData: roomName ? { roomName } : undefined },
+      })
+      .json<{ matchID: string }>();
 
-    return data.gameID;
+    return data.matchID;
   }
 
   async joinRoom({
@@ -43,16 +55,24 @@ export class LobbyService {
   }: JoinRoomParams): Promise<{ playerCredentials: string }> {
     const { playerCredentials } = await this.api
       .post(roomID + "/join", {
-        json: json
+        json: json,
       })
       .json<{ playerCredentials: string }>();
 
     return {
-      playerCredentials
+      playerCredentials,
     };
   }
 
   async getRoomMetadata(roomID: string): Promise<RoomMetadata> {
     return await this.api.get(roomID).json<{ players: Player[] }>();
+  }
+
+  async listRooms(): Promise<{ matches: RoomSummary[] }> {
+    return await this.api.get("").json<{ matches: RoomSummary[] }>();
+  }
+
+  async startGame(roomID: string): Promise<void> {
+    await this.api.post(roomID + "/start", { json: {} });
   }
 }

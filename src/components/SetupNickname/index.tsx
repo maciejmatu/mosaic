@@ -1,5 +1,4 @@
 import * as React from "react";
-import "./style.scss";
 import { useStoreState, useStoreActions } from "../../store";
 import { useState } from "react";
 import { ButtonBack } from "../ButtonBack";
@@ -29,19 +28,19 @@ export const SetupNickname: React.FC<{ onSubmit?: () => void }> = ({
       <ButtonLang />
       <SmallLogo />
 
-      <h3 className="SetupNickname__title">
+      <h3 className="page-title">
         <Trans>Set your nickname</Trans>
       </h3>
 
-      <form onSubmit={handleSubmit} className="SetupNickname__form">
+      <form onSubmit={handleSubmit} className="mt-6 flex flex-col items-center">
         <Input
           placeholder={t("Type in something cool...")}
-          className="SetupNickname__input"
+          className="w-[20rem]"
           onChange={(e) => setNickname(e.target.value)}
           value={nickname}
         />
 
-        <Button type="submit">
+        <Button type="submit" className="mt-4">
           <Trans>Save</Trans>
         </Button>
       </form>

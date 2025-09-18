@@ -10,6 +10,8 @@ interface IBoardContext {
   isActive: boolean;
   ctx: any;
   undo(): void;
+  chatMessages?: { id: string; sender: string; payload: any }[];
+  sendChatMessage?: (payload: any) => void;
   pickTiles(
     tileIds: GameTile[],
     tileGroupId: number | "middle",

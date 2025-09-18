@@ -1,6 +1,6 @@
 import { BoardProps } from "boardgame.io/react";
 import React, { useState, useEffect } from "react";
-import { GameState, GameTile, GameTileType } from "../../game";
+import { GameState, GameTile, GameTileType } from "../../game/types";
 import { BoardContext } from "./BoardContext";
 import { PlayerBoard } from "./PlayerBoard";
 import { Scoreboard } from "./Scoreboard";
@@ -8,9 +8,9 @@ import { TilesBoard } from "./TilesBoard";
 import { useTranslation } from "react-i18next";
 import { GameOver } from "./GameOver";
 import { Sidebar } from "./Sidebar";
-import "./style.scss";
 import classNames from "classnames";
 import { useParams } from "react-router-dom";
+import { useStoreState } from "../../store";
 
 export interface SelectedTiles {
   tiles: GameTile[];
@@ -35,10 +35,14 @@ export const GameBoard: React.FC<BoardProps<GameState>> = ({
   ctx,
   playerID,
   undo,
-  gameMetadata,
+  matchData,
+  chatMessages,
+  sendChatMessage,
 }) => {
   const { watchId } = useParams();
   const { t } = useTranslation();
+  const nickname = useStoreState((s) => s.nickname);
+  const roomMetadata = useStoreState((s) => s.roomMetadata);
   const [selectedTiles, setSelectedTiles] = useState<SelectedTiles | undefined>(
     undefined
   );
@@ -58,17 +62,31 @@ export const GameBoard: React.FC<BoardProps<GameState>> = ({
     setSelectedTiles(undefined);
   };
 
-  const alert = new Audio(
-    "https://freesound.org/data/previews/260/260614_4486188-lq.mp3"
-  );
+  const alert = React.useMemo(() => {
+    try {
+      return new Audio(
+        "https://freesound.org/data/previews/260/260614_4486188-lq.mp3"
+      );
+    } catch (e) {
+      return undefined;
+    }
+  }, []);
 
   const [alertPlayed, setAlertPlayed] = useState(false);
   useEffect(() => {
     if (isActive) {
       // Playing alert if not already played
-      if (!alertPlayed) {
-        alert.play();
-        setAlertPlayed(true);
+      if (!alertPlayed && alert) {
+        const playPromise = alert.play();
+        if (playPromise && typeof playPromise.then === "function") {
+          playPromise
+            .then(() => setAlertPlayed(true))
+            .catch(() => {
+              // Autoplay blocked; ignore
+            });
+        } else {
+          setAlertPlayed(true);
+        }
       }
     } else {
       // Reset alertPlayed to false
@@ -96,6 +114,23 @@ export const GameBoard: React.FC<BoardProps<GameState>> = ({
     };
   }, [t, isActive]);
 
+  const playersInfo = React.useMemo(() => {
+    const ids: string[] = (ctx?.playOrder || []).map((p: any) => String(p));
+    const matchPlayers = (matchData as any[]) || [];
+    const lobbyPlayers = (roomMetadata?.players || []) as any[];
+
+    return ids.map((id) => {
+      const matchPlayer = matchPlayers.find((p) => String(p.id) === id);
+      const lobbyPlayer = lobbyPlayers.find((p) => String(p.id) === id);
+      const name =
+        (matchPlayer && (matchPlayer as any).name) ||
+        (lobbyPlayer && (lobbyPlayer as any).name) ||
+        (String(playerID) === id ? nickname : undefined) ||
+        `Player ${Number(id) + 1}`;
+      return { id, name };
+    });
+  }, [ctx?.playOrder, matchData, roomMetadata, playerID, nickname]);
+
   return (
     <BoardContext.Provider
       value={{
@@ -105,6 +140,8 @@ export const GameBoard: React.FC<BoardProps<GameState>> = ({
         isActive,
         ctx,
         undo,
+        chatMessages,
+        sendChatMessage,
         pickTiles,
         selectedTiles,
         setSelectedTiles,
@@ -116,18 +153,17 @@ export const GameBoard: React.FC<BoardProps<GameState>> = ({
             JSON.stringify({ pinned: value })
           );
         },
-        playersInfo: gameMetadata,
+        playersInfo,
       }}
     >
       <div
         className={classNames(
-          "GameBoard",
-          isSidebarPinned && "GameBoard--pinned"
+          "h-screen flex items-center justify-center flex-col",
+          isSidebarPinned && "pl-[400px]"
         )}
       >
         <Sidebar />
         {!!ctx.gameover && <GameOver />}
-        <Scoreboard />
         <TilesBoard />
         <PlayerBoard />
       </div>
