@@ -3,9 +3,11 @@ import sortBy from "lodash/sortBy";
 import React, { useEffect } from "react";
 import { Trans } from "react-i18next";
 import { useBoardContext } from "./BoardContext";
+import { useStoreActions } from "../../store";
 
 export const GameOver = () => {
   const { State, playerID, playersInfo } = useBoardContext();
+  const clearGameState = useStoreActions((s) => s.clearGameState);
 
   const sortedWinners = sortBy(
     playersInfo.map((player) => ({
@@ -56,7 +58,7 @@ export const GameOver = () => {
           })}
         </div>
 
-        <ButtonLink to="/create">
+        <ButtonLink to="/create" onClick={() => clearGameState()}>
           <Trans>Create new game</Trans>
         </ButtonLink>
       </div>

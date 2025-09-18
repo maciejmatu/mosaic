@@ -1,51 +1,10 @@
 import { times, dropRight, partition, each, shuffle } from "lodash";
 import { INVALID_MOVE } from "boardgame.io/core";
 import { GAME_ID } from "../config";
+import { Game, PlayerID } from "boardgame.io";
+import { GameState, GameTile, GameTileType, Player, ScoreBoard } from "./types";
 
-type PlayerID = string;
-
-export interface Player {
-  id: PlayerID;
-  leftSlots: (GameTile | null)[][];
-  rightSlots: PermanentSlot[][];
-  minusPoints: (GameTile | "begin-tile")[];
-}
-
-export interface PermanentSlot {
-  type: GameTileType;
-  tile?: GameTile;
-  rowIndex: number;
-  colIndex: number;
-}
-
-export interface ScoreBoard {
-  [key: string]: number;
-}
-
-export interface GameState {
-  tilesInPool: GameTile[];
-  usedTiles: GameTile[];
-  tileGroups: GameTile[][];
-  tileMiddleGroup: GameTile[];
-  scoreboard: ScoreBoard;
-  beginTileOwner: null | PlayerID; // null means tile is in the middle group
-  players: { [key: string]: Player };
-  shouldEndGame: boolean;
-}
-
-export enum GameTileType {
-  A = "tile-a",
-  B = "tile-b",
-  C = "tile-c",
-  D = "tile-d",
-  E = "tile-e",
-  BEGIN = "tile-begin",
-}
-
-export interface GameTile {
-  type: GameTileType; // e.g. in UI shows different color
-  id: string;
-}
+export * from "./types";
 
 const TILE_TYPE_COUNT = 20; // defined by game rules
 const DEFAULT_TILE_ORDER = [
@@ -110,12 +69,12 @@ function getTileGroups(
   };
 }
 
-export const MosaicGame = {
+export const MosaicGame: Game<GameState> = {
   name: GAME_ID,
 
-  setup: (ctx, setupData) => {
+  setup: ({ ctx, random }) => {
     // generate 20 tiles for each tile type
-    const tiles: GameTile[] = ctx.random.Shuffle(
+    const tiles: GameTile[] = random.Shuffle(
       DEFAULT_TILE_ORDER.flatMap((tileType, groupIndex) => {
         return times<GameTile>(TILE_TYPE_COUNT, (index: number) => {
           return {
@@ -136,8 +95,8 @@ export const MosaicGame = {
       PLAYERS_COUNT_TO_GROUPS[ctx.numPlayers]
     );
 
-    const scoreboard = {};
-    const players = {};
+    const scoreboard: ScoreBoard = {};
+    const players: { [key: string]: Player } = {};
 
     times(ctx.numPlayers, (index) => {
       const id = index.toString();
@@ -145,11 +104,11 @@ export const MosaicGame = {
         id,
         // temporary board
         leftSlots: [
-          Array(1).fill(null),
-          Array(2).fill(null),
-          Array(3).fill(null),
-          Array(4).fill(null),
-          Array(5).fill(null),
+          [null],
+          [null, null],
+          [null, null, null],
+          [null, null, null, null],
+          [null, null, null, null, null],
         ],
         // permanent board
         rightSlots: times(5, (rowIndex) => {
@@ -183,7 +142,7 @@ export const MosaicGame = {
     return initialState;
   },
 
-  endIf: (G: GameState, ctx) => {
+  endIf: ({ G }) => {
     if (G.shouldEndGame) {
       let winner = { score: 0, id: "" };
 
@@ -207,7 +166,7 @@ export const MosaicGame = {
     endTurn: {
       undoable: false,
       client: false,
-      move: (G: GameState, ctx) => {
+      move: ({ G, ctx, events }) => {
         let overrideNextUser: PlayerID | null = null;
 
         if (shouldReinitialize(G)) {
@@ -361,15 +320,12 @@ export const MosaicGame = {
           }
 
           // start next pickTiles phase
-          const {
-            updatedTilesInPool,
-            updatedUsedTiles,
-            tileGroups,
-          } = getTileGroups(
-            G.tilesInPool,
-            G.usedTiles,
-            PLAYERS_COUNT_TO_GROUPS[ctx.numPlayers]
-          );
+          const { updatedTilesInPool, updatedUsedTiles, tileGroups } =
+            getTileGroups(
+              G.tilesInPool,
+              G.usedTiles,
+              PLAYERS_COUNT_TO_GROUPS[ctx.numPlayers]
+            );
 
           G.usedTiles = updatedUsedTiles;
           G.tileGroups = tileGroups;
@@ -379,18 +335,18 @@ export const MosaicGame = {
         }
 
         if (overrideNextUser) {
-          ctx.events.endTurn({ next: overrideNextUser });
+          events.endTurn({ next: overrideNextUser });
         } else {
-          ctx.events.endTurn();
+          events.endTurn();
         }
       },
     },
     pickTiles: {
       undoable: true,
       client: true,
-      move: (G: GameState, ctx, tiles, tileGroupId, targetSlotId) => {
+      move: ({ G, ctx, playerID }, tiles, tileGroupId, targetSlotId) => {
         // make sure user doesn't do two moves in a turn
-        if (ctx.numMoves > 0) return;
+        if ((ctx.numMoves ?? 0) > 0) return;
 
         const isMiddleGroup = tileGroupId === "middle";
         const tileGroup = isMiddleGroup

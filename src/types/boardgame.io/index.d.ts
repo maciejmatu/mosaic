@@ -19,12 +19,15 @@ declare module "boardgame.io/react" {
     moves: Moves;
     gameID: string;
     playerID: PlayerID;
-    gameMetadata: any;
+    gameMetadata?: any;
+    matchData?: any;
     isActive: boolean;
     log: any;
     isMultiplayer: boolean;
     isConnected: boolean;
     events: any;
+    chatMessages?: { id: string; sender: string; payload: any }[];
+    sendChatMessage?: (payload: any) => void;
     undo(): void;
     redo(): void;
   }

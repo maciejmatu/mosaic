@@ -4,17 +4,18 @@ import { historyApiFallback } from "koa2-connect-history-api-fallback";
 import { Server } from "boardgame.io/server";
 import { DEFAULT_PORT } from "../src/config";
 import { MosaicGame } from "../src/game";
-import * as Sentry from "@sentry/node";
 
-Sentry.init({
-  dsn:
-    "https://ae87b4488f294c0fa382a15b06da8864@o431642.ingest.sentry.io/5383278",
-});
-
-const root = path.join(__dirname, "../build");
+const root = path.join(__dirname, "../dist");
 const PORT = Number(process.env.PORT || DEFAULT_PORT);
 
-const server = Server({ games: [MosaicGame] });
+const server = Server({
+  games: [MosaicGame],
+  origins: [
+    "http://localhost:8080",
+    "http://localhost:3000",
+    "https://mosaic.maciejmatu.com/",
+  ],
+});
 
 server.app.use(
   historyApiFallback({

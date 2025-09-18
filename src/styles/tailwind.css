@@ -1,0 +1,250 @@
+@import "tailwindcss";
+
+@theme {
+  --color-white: #ffffff;
+  --color-gray: #e9e8eb;
+  --color-dark-gray: #c4c4c4;
+  --color-dark: #2c2c2c;
+  --color-black: #000000;
+  --color-green: #11c759;
+  --color-ocean-green: #3fe2c5;
+  --color-yellow: #f8c032;
+  --color-violet: #b264d2;
+  --color-pink: #ef69b1;
+  --color-light-yellow: #ffc876;
+  --color-ocean-blue: #5cdefb;
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  body {
+    @apply m-0 bg-gray;
+    font-family: "Rubik", sans-serif;
+    font-size: 16px;
+  }
+}
+
+@layer components {
+  /* Shared page typography */
+  .page-title {
+    @apply text-white font-bold text-[3.125em] m-0;
+  }
+  .page-subtitle {
+    @apply text-white font-medium text-[2em] my-[1.25em] mb-[1.875em];
+  }
+  .lead-text {
+    @apply mt-[3.75em] mb-0 max-w-[37.5em] font-medium text-[1.25em] leading-[1.5] text-center text-white;
+  }
+  .pill-box {
+    @apply border-[.1875em] text-[1.125em] text-white px-[2em] py-[.75em] font-normal text-center rounded-[.625em];
+    border-color: rgb(147, 84, 174);
+    background: rgb(178, 100, 210);
+  }
+
+  /* Tiles board (factories + middle) */
+  .TilesBoard {
+    display: grid;
+    grid-template-columns: repeat(7, 9.75em);
+    grid-template-rows: 2;
+    margin-bottom: 1.875em;
+  }
+  .TilesBoard__middle {
+    grid-column: 3 / span 3;
+    grid-row: 1;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0.375em;
+    justify-content: center;
+    align-items: center;
+  }
+  .TilesBoard__middle > * {
+    margin: 0.25em 0.5em;
+  }
+  .TilesBoard__tile:first-child {
+    grid-column: 2;
+  }
+  .TilesBoard__tile:nth-child(2) {
+    grid-column: 6;
+  }
+  .TilesBoard__tile:nth-child(3) {
+    grid-column: 3;
+  }
+  .TilesBoard__tile:nth-child(4) {
+    grid-column: 4;
+  }
+  .TilesBoard__tile:nth-child(5) {
+    grid-column: 5;
+  }
+
+  .TilesBoard--3-players .TilesBoard__tile:nth-child(3) {
+    grid-column: 2;
+  }
+  .TilesBoard--3-players .TilesBoard__tile:nth-child(4) {
+    grid-column: 3;
+  }
+  .TilesBoard--3-players .TilesBoard__tile:nth-child(5) {
+    grid-column: 4;
+  }
+  .TilesBoard--3-players .TilesBoard__tile:nth-child(6) {
+    grid-column: 5;
+  }
+  .TilesBoard--3-players .TilesBoard__tile:nth-child(7) {
+    grid-column: 6;
+  }
+
+  .TilesBoard--4-players .TilesBoard__middle {
+    grid-column: 2 / span 5;
+    grid-row: 1;
+  }
+  .TilesBoard--4-players .TilesBoard__tile {
+    grid-column: auto;
+  }
+
+  .TilesContainer {
+    margin: 0.625em;
+    background: #f7f8fb;
+    border-radius: 50%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 0.5em;
+    padding: 1.75em;
+    box-shadow: 0 0.125em 0.125em rgba(0, 0, 0, 0.25);
+  }
+
+  /* Controls above the player board */
+  .PlayerControls {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 0.75em;
+  }
+  .PlayerControls__button {
+    margin-left: 1.25em;
+  }
+
+  /* Player board layout */
+  .PlayerBoard {
+    font-size: 1em;
+    padding: 1.25em;
+    border-radius: 0.625em;
+    background-color: #f7f8fb;
+    display: inline-grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 3.75em;
+    margin-left: 1.25em;
+    position: relative;
+    box-shadow: 0 0.125em 0.125em rgba(0, 0, 0, 0.25);
+  }
+  .PlayerBoard--waiting {
+    box-shadow: 0 0 0 0.25em rgba(248, 192, 50, 0.5);
+  }
+  .PlayerBoard--active {
+    box-shadow: 0 0 0 0.25em rgba(17, 199, 89, 0.7);
+  }
+  .PlayerBoard__rulebook {
+    position: absolute;
+    top: 50%;
+    right: -1.25em;
+    transform-origin: top right;
+    transform: rotate(90deg) translate(50%, -100%);
+    background: rgba(239, 105, 177, 0.8);
+    color: #fff;
+    font-weight: 500;
+    font-size: 0.875em;
+    cursor: pointer;
+    letter-spacing: 1px;
+    padding: 0.625em 1.25em;
+    text-transform: uppercase;
+    border-radius: 0.375em;
+  }
+  .PlayerBoard__rulebook:hover {
+    background: #ef69b1;
+  }
+  .PlayerBoard__hint {
+    max-width: 50%;
+    font-size: 0.75em;
+    text-transform: uppercase;
+    font-weight: 800;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translateY(calc(-100% - 0.625em));
+    color: #f7b819;
+  }
+  .PlayerBoard__hint-accent {
+    color: #d69c07;
+  }
+  .PlayerBoard--active .PlayerBoard__hint {
+    color: #11c759;
+  }
+  .PlayerBoard__minus-points {
+    margin-top: 0.625em;
+    grid-column: span 2 / span 2;
+    display: flex;
+    justify-content: center;
+  }
+
+  /* Minus points column to the left of the board */
+  .MinusPoints {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    bottom: 0;
+    left: 0;
+    transform: translate(calc(-100% - 1.5em));
+  }
+  .MinusPoints--clickable {
+    cursor: pointer;
+  }
+  .MinusPoints--clickable:hover .MinusPoints__item {
+    opacity: 0.8;
+  }
+  /* Highlight available placement in minus points */
+  .MinusPoints--highlited .MinusPoints__item .MinusPoints__tile {
+    background: rgba(239, 105, 177, 0.3);
+  }
+  .MinusPoints__item {
+    position: relative;
+    margin-top: 0.5em;
+  }
+  .MinusPoints__penalty {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translate(calc(-100% - 0.5em), -50%);
+    font-weight: 700;
+    font-size: 0.75em;
+    color: #c4c4c4;
+  }
+
+  /* Right-side tiles grid */
+  .SlotRow {
+    display: flex;
+    margin: 0.625em 0;
+  }
+  .SlotRow__tile {
+    cursor: default;
+    margin-left: 0.625em;
+  }
+
+  /* Left-side temporary rows */
+  .TemporarySlot {
+    display: flex;
+    justify-content: flex-end;
+    margin: 0.625em 0;
+  }
+  .TemporarySlot--clickable {
+    cursor: pointer;
+  }
+  .TemporarySlot--clickable:hover .TemporarySlot__tile {
+    opacity: 0.8;
+  }
+  .TemporarySlot__tile {
+    margin-left: 0.625em;
+  }
+  .TemporarySlot--highlighted .TemporarySlot__tile {
+    background: rgba(17, 199, 89, 0.3);
+  }
+}

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/src/styles/tailwind.css" rel="stylesheet" />
+    <link rel="icon" href="/logo128.png" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>Mosaic</title>
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=%VITE_GOOGLE_ANALYTICS_ID%"
+    ></script>
+    <script
+      defer
+      src="https://cloud.umami.is/script.js"
+      data-website-id="%VITE_UMAMI_WEBSITE_ID%"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "%VITE_GOOGLE_ANALYTICS_ID%");
+    </script>
+    <meta property="og:title" content="Mosaic Board Game" />
+    <meta
+      property="og:description"
+      content="Online multiplayer Azul imitation you can play with friends."
+    />
+    <meta property="og:image" content="/social_image.png" />
+    <meta name="twitter:title" content="Mosaic Board Game" />
+    <meta
+      name="twitter:description"
+      content="Online multiplayer Azul imitation you can play with friends."
+    />
+    <meta name="twitter:image" content="/social_image.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/index.tsx"></script>
+  </body>
+</html>

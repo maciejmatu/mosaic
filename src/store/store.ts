@@ -4,6 +4,7 @@ import {
   RoomMetadata,
   JoinRoomParams,
   ActiveRoomPlayer,
+  RoomSummary,
 } from "../services/lobby-service";
 
 export interface StoreModel {
@@ -11,14 +12,25 @@ export interface StoreModel {
   setNickname: Action<StoreModel, string>;
   roomID: string | null;
   setRoomID: Action<StoreModel, string>;
-  createGameRoom: Thunk<StoreModel, number, StoreInjections>;
+  createGameRoom: Thunk<
+    StoreModel,
+    { numPlayers: number; roomName?: string },
+    StoreInjections
+  >;
   roomMetadata: RoomMetadata | null;
   setRoomMetadata: Action<StoreModel, RoomMetadata>;
   loadRoomMetadata: Thunk<StoreModel, string, StoreInjections>;
+  rooms: RoomSummary[];
+  setRooms: Action<StoreModel, RoomSummary[]>;
+  loadRooms: Thunk<StoreModel, void, StoreInjections>;
   activeRoomPlayer: ActiveRoomPlayer | null;
   setActiveRoomPlayer: Action<StoreModel, ActiveRoomPlayer>;
   joinRoom: Thunk<StoreModel, JoinRoomParams, StoreInjections>;
-  reset: Action;
+  startGame: Thunk<StoreModel, string, StoreInjections>;
+  clearGameState: Action<StoreModel>;
+  showRulebook: boolean;
+  setShowRulebook: Action<StoreModel, boolean>;
+  reset: Action<StoreModel>;
 }
 
 // nickname is used between games to simplify room user creation
@@ -44,8 +56,14 @@ export const store: StoreModel = {
     state.roomID = payload;
   }),
   createGameRoom: thunk(async (actions, payload, { injections }) => {
-    gtag("event", "create-game-room", { playerCount: payload });
-    const roomID = await injections.lobbyApi.createRoom(payload);
+    // Clear previous game state before creating new room
+    actions.clearGameState();
+
+    gtag("event", "create-game-room", { playerCount: payload.numPlayers });
+    const roomID = await injections.lobbyApi.createRoom(
+      payload.numPlayers,
+      payload.roomName
+    );
     actions.setRoomID(roomID);
   }),
 
@@ -58,17 +76,47 @@ export const store: StoreModel = {
     actions.setRoomMetadata(metadata);
   }),
 
+  rooms: [],
+  setRooms: action((state, payload) => {
+    state.rooms = payload;
+  }),
+  loadRooms: thunk(async (actions, _payload, { injections }) => {
+    const res = await injections.lobbyApi.listRooms();
+    actions.setRooms(res.matches || []);
+  }),
+
   activeRoomPlayer: null,
   setActiveRoomPlayer: action((state, payload) => {
     localStorage.setItem(PLAYER_STORAGE_KEY, JSON.stringify(payload));
     state.activeRoomPlayer = payload;
   }),
   joinRoom: thunk(async (actions, payload, { injections }) => {
+    // Clear previous game state before joining new room
+    actions.clearGameState();
+
     const { playerCredentials } = await injections.lobbyApi.joinRoom(payload);
     actions.setActiveRoomPlayer({
       credential: playerCredentials,
       playerID: payload.playerID,
     });
+  }),
+
+  startGame: thunk(async (actions, roomID, { injections }) => {
+    await injections.lobbyApi.startGame(roomID);
+  }),
+
+  clearGameState: action((state) => {
+    // Clear game-related state when joining a new room
+    state.roomMetadata = null;
+    state.activeRoomPlayer = null;
+    state.showRulebook = false;
+    // Clear from localStorage as well
+    localStorage.removeItem(PLAYER_STORAGE_KEY);
+  }),
+
+  showRulebook: false,
+  setShowRulebook: action((state, payload) => {
+    state.showRulebook = payload;
   }),
 
   reset: action(() => initState),

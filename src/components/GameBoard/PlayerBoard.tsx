@@ -1,5 +1,5 @@
 import times from "lodash/times";
-import React, { useState } from "react";
+import React from "react";
 import { GameTileType, Player } from "../../game";
 import { useBoardContext } from "./BoardContext";
 import cn from "classnames";
@@ -8,6 +8,8 @@ import { Trans } from "react-i18next";
 import { PlayerControls } from "./PlayerControls";
 import classNames from "classnames";
 import { Rulebook } from "./Rulebook";
+import { useStoreActions, useStoreState } from "../../store";
+import { Chat } from "./chat/Chat";
 
 function getMinusPointsForIndex(value: number): number | null {
   switch (value) {
@@ -55,9 +57,8 @@ export const PlayerBoardLayout: React.FC<{
       <div
         className={classNames("PlayerBoard__minus-points", "MinusPoints", {
           "MinusPoints--clickable": onMinusPointsClick,
-          "MinusPoints--highlited": highlitedRowsIndeces?.includes(
-            "minus-points"
-          ),
+          "MinusPoints--highlited":
+            highlitedRowsIndeces?.includes("minus-points"),
         })}
         onClick={onMinusPointsClick}
       >
@@ -101,9 +102,8 @@ export const PlayerBoardLayout: React.FC<{
             <div
               className={classNames("TemporarySlot", {
                 "TemporarySlot--clickable": onSlotClick,
-                "TemporarySlot--highlighted": highlitedRowsIndeces?.includes(
-                  slotIndex
-                ),
+                "TemporarySlot--highlighted":
+                  highlitedRowsIndeces?.includes(slotIndex),
               })}
               key={slotIndex}
               onClick={() => onSlotClick && onSlotClick(slotIndex)}
@@ -137,14 +137,16 @@ export const PlayerBoardLayout: React.FC<{
               {slotRow.map((slot, slotIndex) => {
                 const tileProps = {
                   type: slot.type,
-                  key: `${rowIndex}-${slotIndex}`,
                   className: "SlotRow__tile",
                 };
 
                 return slot.tile ? (
-                  <TileFull {...tileProps} />
+                  <TileFull key={`${rowIndex}-${slotIndex}`} {...tileProps} />
                 ) : (
-                  <TileTypeSlot {...tileProps} />
+                  <TileTypeSlot
+                    key={`${rowIndex}-${slotIndex}`}
+                    {...tileProps}
+                  />
                 );
               })}
             </div>
@@ -165,13 +167,14 @@ export const PlayerBoard = () => {
     isActive,
     ctx,
   } = useBoardContext();
-  const [showRulebook, setShowRulebook] = useState(false);
+  const showRulebook = useStoreState((s) => s.showRulebook);
+  const setShowRulebook = useStoreActions((s) => s.setShowRulebook);
 
   const playerBoard = State.players[playerID];
 
-  const currentPlayerName = playersInfo.find(
+  const currentPlayerName = (playersInfo || []).find(
     (p) => String(p.id) === ctx.currentPlayer
-  )!.name;
+  )?.name;
 
   const highlitedRowsIndeces: (number | "minus-points")[] = [];
 
@@ -187,7 +190,7 @@ export const PlayerBoard = () => {
     // an object method (depending on the fp/oop approach)
     const hasEmptySlots =
       row.length !== row.reduce((count, tile) => count + (tile ? 1 : 0), 0);
-    const canPlaceColorRight = !playerBoard.rightSlots[index].find(
+    const canPlaceColorRight = !playerBoard.rightSlots[index]?.find(
       (slot) => slot.type === selectedTiles.tiles[0].type
     )?.tile;
     const canPlaceColorLeft = row[0]
@@ -200,7 +203,7 @@ export const PlayerBoard = () => {
   });
 
   return (
-    <div>
+    <div className="relative">
       <PlayerControls />
       {showRulebook && <Rulebook onClose={() => setShowRulebook(false)} />}
 
@@ -223,12 +226,6 @@ export const PlayerBoard = () => {
           }
         }}
       >
-        <div
-          className="PlayerBoard__rulebook"
-          onClick={() => setShowRulebook(true)}
-        >
-          <Trans>Rulebook</Trans>
-        </div>
         <span className="PlayerBoard__hint">
           {isActive ? (
             ctx.numMoves > 0 ? (
@@ -246,6 +243,7 @@ export const PlayerBoard = () => {
           )}
         </span>
       </PlayerBoardLayout>
+      <Chat />
     </div>
   );
 };
